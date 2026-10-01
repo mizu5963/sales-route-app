@@ -34,7 +34,7 @@ select,input{width:100%;border:1px solid #d8dee1;background:#fafbfb;border-radiu
 <main class="container">
 <section class="card">
 <label>📅 DAY & ROUTE</label>
-<select id="route"></select>
+<select id="route"><option value="">-- Choose Day & Route --</option></select>
 <div style="height:12px"></div>
 <label>🏪 SHOP</label>
 <div class="shoprow"><select id="shop"><option value="">-- Select shop --</option></select></div>
@@ -121,9 +121,14 @@ function send(){
  if(!$("route").value){alert("Day / Route select karein.");return}
  if(!$("shop").value){alert("Shop select karein.");return}
  if(!validate())return;
- let text=`*SALES ORDER*\\n\\n*Shop:* ${$("shop").value}\\n*Route:* ${$("route").value}\\n--------------------------\\n`,total=0;
- products.forEach((p,i)=>{let v=+qty[i]||0;if(!v)return;let n=pieces(p,v),r=rate(p,n),a=n*r;total+=a;text+=`\\n*${p.name}*\\nQty: ${p.unit==="bandha"?v+" Bandha ("+n+" pcs)":v+" pcs"}\\nRate: ₹${r.toFixed(2)}\\nAmount: ₹${a.toFixed(2)}\\n`});
- text+=`\\n--------------------------\\n*GRAND TOTAL: ₹${total.toFixed(2)}*`;
+ let text=`Shop name: ${$("shop").value}\nRoute: ${$("route").value}\n`;
+ products.forEach((p,i)=>{
+  let v=+qty[i]||0;if(!v)return;
+  let n=pieces(p,v),r=rate(p,n);
+  let rateStr = r % 1 === 0 ? r : r.toFixed(2);
+  let qtyStr = p.unit === "bandha" ? `${v} Bandha (${n} pcs)` : `${n} pcs`;
+  text+=`\n${p.name}\nMRP: ₹${p.mrp}\nRate: ₹${rateStr}\nQuantity: ${qtyStr}\n`;
+ });
  window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
 }
 Object.keys(routes).forEach(r=>{let o=document.createElement("option");o.value=r;o.textContent=r;$("route").appendChild(o)});
