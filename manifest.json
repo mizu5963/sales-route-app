@@ -1,0 +1,10 @@
+{
+  "name": "Sales Route Order App",
+  "short_name": "Sales Order",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f5f6",
+  "theme_color": "#075e54",
+  "description": "Mobile sales route order application",
+  "icons": []
+}
