@@ -60,7 +60,7 @@ const routes={
 "Saturday - Kalali":["Shreeji Pan","Baroda Dairy Parlar","Prasann Soda Shop","Jay Shree Bhairuji Kirana Store","Mahiya Mart","Bindu Provision Store","Shakti Kirana Store","Krishna Super Store","Sukun Provision Store","Khushi Pro Store","Mahadev Mini Mart","Balaji Super Market","Chanakya Provision Store","Devnarayan Provision Store","Saibaba Provision Store","Jay Mataji Pan & Colddrink","Harsiddhi Provision Store","Apna Adda Provision Store","Bajrang Pan","Balaji Super Store -2","MS Super Store","Ganesh Provision Store","Al Makkah Pan","Pick & Eat"]
 };
 const products=[
-["Hakka Noodles Masala (Masala)",10,8,"bandha",20,1],["Paneer Chili Masala (Masala)",10,8,"bandha",20,1],["Veg Manchurian Masala (Masala)",10,8,"bandha",20,1],["Schezwan Fried Rice Masala (Masala)",10,8,"bandha",20,1],["Schezwan Plain Fried Rice Masala (Masala)",10,8,"bandha",20,1],
+["Hakka Noodles Masala (Masala)",10,8,"bandha",20,1],["Paneer Chili Masala (Masala)",10,8,"bandha",20,1],["Veg Manchurian Masala (Masala)",10,8,"bandha",20,1],["Schezwan Fried Rice Masala (Masala)",10,8,"bandha",20,1],["Plain Fried Rice Masala (Masala)",10,8,"bandha",20,1],
 ["Smith & Jones Peri Peri Masala",5,4,"pcs",1,48],["Smith & Jones Pasta Masala",5,4.10,"pcs",1,24],
 ["Schezwan Chutney (MRP 10 Pouch)",10,8,"special30",60,30],["Schezwan Chutney (MRP 45 Pouch)",45,33,"pcs",1,0],["Schezwan Chutney (MRP 84 Glass Bottle)",84,72,"pcs",1,0],
 ["Red Chilli Sauce Pouch",25,21,"pcs",1,0],["Green Chilli Sauce Pouch",25,21,"pcs",1,0],["Dark Soy Sauce Pouch",25,21,"pcs",1,0],
@@ -69,7 +69,7 @@ const products=[
 ["Smith & Jones Ginger Garlic Paste (Small Pouch)",5,3.5,"pcs",1,48],["Smith & Jones Ginger Garlic Paste (Big Pouch)",47,33,"pcs",1,0],
 ["Hakka Noodles (Without Masala)",30,24,"pcs",1,0],["Hakka Noodles (With Masala Inside)",35,28,"pcs",1,0],
 ["Instant Soup - Mix Veg",10,8,"bandha",20,1],["Instant Soup - Sweet Corn Veg",10,8,"bandha",20,1],["Instant Soup - Hot & Sour",10,8,"bandha",20,1],["Instant Soup - Manchow",10,8,"bandha",20,1],["Instant Soup - Tomato",10,8,"bandha",20,1],
-["Tata Sampann Fine Besan 500g",75,40,"pcs",1,0],["Tata Sampann Poha 500g",57,33,"pcs",1,0],["Tata Soulfull No Maida Rusk Toast",40,30,"pcs",1,0]
+["Tata Sampann Fine Besan 500g",75,40,"pcs",1,0],["Tata Sampann Poha 500g",57,33,"pcs",1,0],["Tata Soulfull No Maida Rusk Toast",40,20,"pcs",1,0]
 ].map((x,i)=>({id:i,name:x[0],mrp:x[1],rate:x[2],unit:x[3],pack:x[4],min:x[5]}));
 
 let qty=JSON.parse(localStorage.getItem("salesQty")||"{}");
