@@ -20,20 +20,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); -webkit-tap-highlight-color: transparent; }
         
-        /* Modern Header */
-        header { 
-            background: var(--primary-grad); 
-            color: white; 
-            padding: 16px 20px; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            display: flex; 
-            align-items: center; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-        }
+        header { background: var(--primary-grad); color: white; padding: 16px 20px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; }
         .back-btn { background: none; border: none; color: white; font-size: 20px; margin-right: 15px; display: none; cursor: pointer; transition: 0.2s; }
         .back-btn:active { transform: scale(0.9); }
         h1 { font-size: 19px; font-weight: 600; flex-grow: 1; letter-spacing: 0.5px; }
@@ -42,76 +29,40 @@
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Premium List Items */
-        .list-item { 
-            background: var(--card-bg); 
-            padding: 18px; 
-            margin-bottom: 12px; 
-            border-radius: 14px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
-            cursor: pointer; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border: 1px solid rgba(0,0,0,0.02);
-            transition: 0.2s;
-        }
+        .list-item { background: var(--card-bg); padding: 18px; margin-bottom: 12px; border-radius: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(0,0,0,0.02); transition: 0.2s; }
         .list-item:active { transform: scale(0.98); background: #fdfdfd; }
         .list-item-title { font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
         .list-item-sub { font-size: 12px; color: var(--text-muted); }
         .list-icon { color: var(--wa-green); font-size: 20px; opacity: 0.8; }
         
-        /* Shop Header */
-        .shop-header-card { 
-            background: var(--primary-grad); 
-            color: white;
-            padding: 18px; 
-            border-radius: 14px; 
-            box-shadow: 0 4px 15px rgba(18,140,126,0.2); 
-            margin-bottom: 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        }
+        .shop-header-card { background: var(--primary-grad); color: white; padding: 18px; border-radius: 14px; box-shadow: 0 4px 15px rgba(18,140,126,0.2); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .shop-header-card .list-item-title { color: white; font-size: 18px; }
         .shop-header-card .list-item-sub { color: rgba(255,255,255,0.8); }
         .shop-actions { display: flex; gap: 12px; }
         .btn-icon { background: rgba(255,255,255,0.2); border: none; padding: 10px; border-radius: 50%; color: white; font-size: 16px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .btn-icon.active-gps { background: white; color: var(--wa-dark); box-shadow: 0 0 10px rgba(255,255,255,0.5); }
-        /* Premium Product Card */
-        .product-card { 
-            background: var(--card-bg); 
-            padding: 16px; 
-            margin-bottom: 12px; 
-            border-radius: 14px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
-            border: 1px solid rgba(0,0,0,0.02);
-        }
+
+        .product-card { background: var(--card-bg); padding: 16px; margin-bottom: 12px; border-radius: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); }
         .product-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
         .product-price { color: var(--wa-dark); font-weight: 700; font-size: 16px; background: var(--accent); padding: 4px 10px; border-radius: 8px; }
         .product-scheme { font-size: 11px; font-weight: 600; color: #d32f2f; background: #ffebee; padding: 3px 8px; border-radius: 6px; display: inline-block; margin-top: 6px; }
         
-        /* Modern Qty Controls */
         .qty-wrapper { display: flex; justify-content: flex-end; align-items: center; border-top: 1px solid #f0f0f0; padding-top: 12px; margin-top: 5px; }
         .qty-controls { display: flex; align-items: center; justify-content: space-between; background: var(--bg-color); border-radius: 10px; padding: 4px; width: 130px; }
-        .qty-btn { background: white; border: 1px solid #e0e0e0; width: 32px; height: 32px; border-radius: 8px; font-size: 18px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .qty-btn { background: white; border: 1px solid #e0e0e0; width: 32px; height: 32px; border-radius: 8px; font-size: 18px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); cursor: pointer;}
         .qty-input { width: 45px; border: none; background: transparent; text-align: center; font-size: 15px; font-weight: 700; outline: none; color: var(--wa-dark); }
         
-        /* Floating Bottom Bar */
         .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; z-index: 100; display: none; border-top-left-radius: 20px; border-top-right-radius: 20px; }
         .total-amount { font-size: 20px; font-weight: 700; color: var(--wa-dark); line-height: 1.2; }
         .btn-primary { background: var(--primary-grad); color: white; border: none; padding: 14px 24px; border-radius: 30px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(18,140,126,0.3); transition: 0.3s; }
         .btn-primary:active { transform: translateY(2px); }
         
-        /* Search Box */
-        .search-box { width: 100%; padding: 14px 20px; border: 1px solid #e0e0e0; border-radius: 12px; margin-bottom: 15px; font-size: 14px; outline: none; background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>') no-repeat right 15px center; font-family: 'Poppins', sans-serif; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .search-box { width: 100%; padding: 14px 20px; border: 1px solid #e0e0e0; border-radius: 12px; margin-bottom: 15px; font-size: 14px; outline: none; background: #fff; font-family: 'Poppins', sans-serif; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
         .search-box:focus { border-color: var(--wa-light); box-shadow: 0 0 0 3px rgba(18,140,126,0.1); }
         
-        /* Creator Branding */
         .creator-badge { text-align: center; margin-top: 30px; margin-bottom: 20px; font-size: 13px; color: var(--text-muted); }
         .creator-badge span { font-weight: 600; color: var(--wa-dark); letter-spacing: 0.5px; }
 
-        /* Modals */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
         .modal-box { background: white; padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease; }
         .modal-title { font-size: 18px; margin-bottom: 15px; font-weight: 700; color: var(--text-main); }
@@ -153,7 +104,6 @@
             <i class="fas fa-chevron-right list-icon"></i>
         </div>
         
-        <!-- FAIZAN SHAIKH BRANDING -->
         <div class="creator-badge">
             Developed with <i class="fas fa-heart" style="color: #ff4757;"></i> by <br> <span>FAIZAN SHAIKH</span>
         </div>
@@ -169,7 +119,12 @@
 
     <div id="productsView" class="view">
         <div id="shopHeaderContainer"></div>
-        <input type="text" class="search-box" id="productSearch" placeholder="Search Products..." onkeyup="filterProducts()">
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+            <input type="text" class="search-box" id="productSearch" placeholder="Search Products..." onkeyup="filterProducts()" style="margin-bottom: 0;">
+            <button id="micBtn" onclick="startVoiceRecognition()" style="background: var(--wa-dark); color: white; border: none; border-radius: 12px; padding: 0 20px; font-size: 18px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
         <div id="productsList"></div>
     </div>
 
@@ -186,45 +141,226 @@
     <div id="addShopModal" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">Add New Shop</div>
-            <input type="text" id="newShopName" class="search-box" placeholder="Enter shop name..." style="margin-bottom: 15px; padding-right:15px; background-image:none;">
+            <input type="text" id="newShopName" class="search-box" placeholder="Enter shop name..." style="margin-bottom: 15px;">
             <label style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; display: block;">Insert after which shop?</label>
-            <select id="insertAfterShop" class="search-box" style="margin-bottom: 0; background-image:none; padding-right:15px;"></select>
+            <select id="insertAfterShop" class="search-box" style="margin-bottom: 0;"></select>
             <div class="modal-actions">
                 <button class="btn-outline" onclick="closeAddShopModal()">Cancel</button>
                 <button class="btn-save" onclick="saveNewShop()">Save Shop</button>
             </div>
         </div>
     </div>
+<script>
+    let currentRoute = "";
+    let currentShop = "";
+    let currentShopId = "";
+    let cart = {}; 
+
+    let defaultShops = {
+        "Monday - Akota": [
+            "Shri Jalaram Store", "Jyoti Store", "Gayatri Store", "Guruprem Super Store", "One Stop General Store",
+            "Shri Sitaram Krupa Pro Store", "Shital Provision Store", "Yadav Provision Store", "Arihant Provision Store",
+            "Welcome Enterprise", "Shri Ambica Store", "Laxmi Provision Store", "Jalaram Provision Store", 
+            "Shreeji Stationary & Gift Shop", "New Uttam Provision Store"
+        ].map((n, i) => ({ id: `m_${i+1}`, name: n })),
+        
+        "Tuesday - Sama": [
+            "Mahaveer General Store", "Shri Jay Umiya Traders", "Maa Sweets & Farshan", "Dwarkash Pan", 
+            "Vishwakarma Pan Corner", "Suleshwari Provision Store", "Jay Jalaram Provision Store", 
+            "Radha Krishna Provision Store", "Anita Kirana Store", "Laxmi Narayan Provision Store Opp Anita", 
+            "Banna House", "Shri Badhrikedar Provision & GT", "Yadav Provision Store", "Kushi Provision Store", 
+            "Ma General Store", "Jay Ambe Provision Store", "Mapels", "Laxmi Provision Store"
+        ].map((n, i) => ({ id: `t_${i+1}`, name: n })),
+        
+        "Wednesday - Nawayard": [
+            "Bajrang Provision Store", "Balaji Medical & Provision Store", "Sunita Provision Store", 
+            "Jalaram Provision Store", "Ya Chistiya Provision Store", "Mehboob Provision Store", 
+            "Kabirkha Provision Store", "Imran Provision Store", "Pathan Provision Store Opp Imran", 
+            "Shri Nathji Provision Store", "Shri Ganesh Provision Store", "New Onest Provision Store", 
+            "Asrafi Provision Store", "Jay Ambe Provision Store", "Vijay Provision Store", 
+            "Jay Mahakali Baroda Dairy Kendra", "Shourya Provision Store", "Navpad Provision Store", 
+            "Natraj Provision Store", "Insha Provision Store", "MK Super Mart"
+        ].map((n, i) => ({ id: `w_${i+1}`, name: n })),
+        
+        "Thursday - Laxmipura": [
+            "Himani Provision Store", "Tejas General Store", "Rajesh Provision Store", "Jay Ambe Meldi Store", 
+            "Kamlesh Super Store", "Ambika Provision Store", "Shakti Pan", "Mahakali Pan Corner", "Dwarkadhish Pan", 
+            "Vishvaswar Provision Store", "Shri Baal Krishna Provision Store", "Shri Icecream & Cold Drinks", 
+            "Baba Ramdev Provision Store", "Shrinathji Dairy", "Purvi General Store", "Shri Ram Meldi & Provision Store", 
+            "Jay Kayla Devi Provision Store"
+        ].map((n, i) => ({ id: `th_${i+1}`, name: n })),
+        
+        "Friday - Diwalipura": [
+            { id: "f_1", name: "Gurukrupa Pan", url: "https://www.google.com/maps/search/?api=1&query=22.3034480,73.1553850", gpsSaved: true },
+            { id: "f_2", name: "Shriji Enterprises", url: "https://maps.app.goo.gl/8yFHAor22jtrH3ZT8", gpsSaved: true },
+            { id: "f_3", name: "Shivam Traders", url: "https://maps.app.goo.gl/qAv3CNh3ckGsX6jn6", gpsSaved: true },
+            { id: "f_4", name: "Gokul Traders", url: "https://maps.app.goo.gl/vVikgQzhW1b9cmig8", gpsSaved: true },
+            { id: "f_5", name: "Matangi Provision Store", url: "https://maps.app.goo.gl/EzaT4YBrHLextCBJ7", gpsSaved: true },
+            { id: "f_6", name: "Hari Om Stores & Telecom", url: "https://maps.app.goo.gl/gpmaqhB3iRZRP1p67", gpsSaved: true },
+            { id: "f_7", name: "Bhavani Pro Store", url: "https://maps.app.goo.gl/4ntAVnQPqWf5MhoCA?g_st=ac", gpsSaved: true },
+            { id: "f_8", name: "Mahek Provision Store", url: "https://maps.app.goo.gl/4ntAVnQPqWf5MhoCA?g_st=ac", gpsSaved: true },
+            { id: "f_9", name: "Jay Ambe Super Store", url: "https://maps.app.goo.gl/i459yd2CnZGUPwQo7", gpsSaved: true },
+            { id: "f_10", name: "Jay Durga Provision Store" }, { id: "f_11", name: "Ambica Provision Store & Icecream" },
+            { id: "f_12", name: "Narayan Provision Store" }, { id: "f_13", name: "Shriram Super Store" },
+            { id: "f_14", name: "Shri Mahavir Super Store" }, { id: "f_15", name: "Kanha's Scoops & More" },
+            { id: "f_16", name: "Bharat Provision Store" }, { id: "f_17", name: "Shri Ram Provision Store" },
+            { id: "f_18", name: "Sidhnath Pro & Farsan Store" }, { id: "f_19", name: "Bansidal Dairy" },
+            { id: "f_20", name: "Jay Shree Bhagwati Provision Store" }, { id: "f_21", name: "Shri Ram Dairy Shop" },
+            { id: "f_22", name: "Jay Ambe Provision Store" }, { id: "f_23", name: "Shri Ganesh Provision Store" },
+            { id: "f_24", name: "Radhe Pan Corner" }, { id: "f_25", name: "Shri Keyladevi Provision Store" },
+            { id: "f_26", name: "Shree Jai Jalaram Store" }
+        ],
+        
+        "Saturday - Kalali": [
+            "Shreeji Pan", "Baroda Dairy Parlar", "Prasann Soda Shop", "Jay Shree Bhairuji Kirana Store", "Mahiya Mart", 
+            "Bindu Provision Store", "Shakti Kirana Store", "Krishna Super Store", "Sukun Provision Store", "Khushi Pro Store", 
+            "Mahadev Mini Mart", "Balaji Super Market", "Chanakya Provision Store", "Devnarayan Provision Store", 
+            "Saibaba Provision Store", "Jay Mataji Pan & Colddrink", "Ma Bhavani Super Market", "Harsiddhi Provision Store", 
+            "Apna Adda Provision Store", "Bajrang Pan", "Parinda Enterprise", "Balaji Super Store -2", "Ms Super Store", 
+            "Ganesh Provision Store", "Al Makkah Pan", "Pick & Eat"
+        ].map((n, i) => ({ id: `s_${i+1}`, name: n }))
+    };
+
+    let shopsDB = JSON.parse(localStorage.getItem('shopsDB'));
+    if (shopsDB && shopsDB["Wednesday"]) {
+        shopsDB["Wednesday - Nawayard"] = shopsDB["Wednesday"];
+        delete shopsDB["Wednesday"];
+        localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
+    }
+    if (!shopsDB) { shopsDB = defaultShops; }
+    const productsDB = [
+        { id: 1, name: "Hakka Noodles Masala", mrp: 10, rate: 8, bandha: 20 },
+        { id: 2, name: "Paneer Chili Masala", mrp: 10, rate: 8, bandha: 20 },
+        { id: 3, name: "Veg Manchurian Masala", mrp: 10, rate: 8, bandha: 20 },
+        { id: 4, name: "Schezwan Fried Rice Masala", mrp: 10, rate: 8, bandha: 20 },
+        { id: 5, name: "Schezwan Plain Fried Rice Masala", mrp: 10, rate: 8, bandha: 20 },
+        { id: 6, name: "Smith & Jones Peri Peri Masala", mrp: 5, rate: 4, scheme: "Min 48 pcs", minQty: 48 },
+        { id: 7, name: "Smith & Jones Pasta Masala", mrp: 5, rate: 4.10, slabs: [{ min: 48, rate: 4.00 }], scheme: "Min 24 pcs", minQty: 24 },
+        { id: 8, name: "Ching's Schezwan Fried Rice Masala (5 Pouch)", mrp: 50, rate: 42 },
+        { id: 9, name: "Schezwan Chutney Pouch", mrp: 10, rate: 8, scheme: "Min 30 pcs", minQty: 30 },
+        { id: 10, name: "Schezwan Chutney Pouch", mrp: 45, rate: 33 },
+        { id: 11, name: "Schezwan Chutney Glass", mrp: 84, rate: 72 },
+        { id: 12, name: "Red Chilli Sauce Pouch", mrp: 25, rate: 21 },
+        { id: 13, name: "Green Chilli Sauce Pouch", mrp: 25, rate: 21 },
+        { id: 14, name: "Dark Soy Sauce Pouch", mrp: 25, rate: 21 },
+        { id: 15, name: "Red Chilli Sauce Glass", mrp: 56, rate: 45 },
+        { id: 16, name: "Green Chilli Sauce Glass", mrp: 56, rate: 45 },
+        { id: 17, name: "Dark Soy Sauce Glass", mrp: 56, rate: 45 },
+        { id: 18, name: "Chilli Vinegar Glass", mrp: 56, rate: 45 },
+        { id: 19, name: "Red Chilli Sauce Plastic", mrp: 84, rate: 45 },
+        { id: 20, name: "Green Chilli Sauce Plastic", mrp: 84, rate: 45 },
+        { id: 21, name: "Dark Soy Sauce Plastic", mrp: 84, rate: 45 },
+        { id: 22, name: "Smith & Jones Tomato Ketchup 90g", mrp: 15, rate: 12 },
+        { id: 23, name: "Ginger Garlic Paste (Small)", mrp: 5, rate: 3.50, scheme: "Min 48 pcs", minQty: 48 },
+        { id: 24, name: "Ginger Garlic Paste (Big)", mrp: 47, rate: 33, slabs: [{ min: 24, rate: 23.50 }] },
+        { id: 25, name: "Hakka Noodles (Without Masala)", mrp: 30, rate: 24 },
+        { id: 26, name: "Hakka Noodles (With Masala Inside)", mrp: 35, rate: 28 },
+        { id: 27, name: "Ching's Chowmein 140g", mrp: 30, rate: 24 },
+        { id: 28, name: "Ching's Hot Garlic Noodles 64g", mrp: 20, rate: 14 },
+        { id: 29, name: "Ching's Manchurian Noodles 64g", mrp: 20, rate: 14 },
+        { id: 30, name: "Ching's Schezwan Noodles 64g", mrp: 20, rate: 14 },
+        { id: 31, name: "Ching's Singapore Curry Noodles 64g", mrp: 20, rate: 14 },
+        { id: 32, name: "Instant Soup - Mix Veg", mrp: 10, rate: 8, bandha: 20 },
+        { id: 33, name: "Instant Soup - Sweet Corn Veg", mrp: 10, rate: 8, bandha: 20 },
+        { id: 34, name: "Instant Soup - Hot & Sour", mrp: 10, rate: 8, bandha: 20 },
+        { id: 35, name: "Instant Soup - Manchow", mrp: 10, rate: 8, bandha: 20 },
+        { id: 36, name: "Instant Soup - Tomato", mrp: 10, rate: 8, bandha: 20 },
+        { id: 37, name: "Instant Soup - Asian Hot", mrp: 10, rate: 8, bandha: 20 },
+        { id: 38, name: "Instant Soup - Lemon Coriander", mrp: 10, rate: 8, bandha: 20 },
+        { id: 39, name: "Tata Sampann Fine Besan 500g", mrp: 75, rate: 40 },
+        { id: 40, name: "Tata Sampann Poha 500g", mrp: 57, rate: 33 },
+        { id: 41, name: "Tata Soulfull No Maida Rusk Toast", mrp: 40, rate: 30 },
+        { id: 42, name: "Tata Sampann Chilli Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
+        { id: 43, name: "Tata Sampann Turmeric Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
+        { id: 44, name: "Sweet Chilli Cashew", mrp: 59, rate: 41 },
+        { id: 45, name: "Pudina Cashew", mrp: 59, rate: 41 },
+        { id: 46, name: "Salted Roasted Almond", mrp: 59, rate: 41 },
+        { id: 47, name: "Salted Roasted Cashew", mrp: 59, rate: 41 },
+        { id: 48, name: "Cheese Burst Makhana", mrp: 155, rate: 108.5 },
+        { id: 49, name: "Himalayan Salt & Pepper Makhana", mrp: 155, rate: 108.5 },
+        { id: 50, name: "Fiery Peri Peri Makhana", mrp: 155, rate: 108.5 },
+        { id: 51, name: "Punchy Pudina Makhana", mrp: 155, rate: 108.5 },
+        { id: 52, name: "Chyawanprash (500g)", mrp: 495, rate: 495 },
+        { id: 53, name: "Apple Cider Vinegar (500ml)", mrp: 495, rate: 495 },
+        { id: 54, name: "Quinoa (500g)", mrp: 295, rate: 295 },
+        { id: 55, name: "Cow Ghee (500ml)", mrp: 625, rate: 625 },
+        { id: 56, name: "Bilona Ghee (500ml)", mrp: 995, rate: 995 },
+        { id: 57, name: "Virgin Coconut Oil (500ml)", mrp: 495, rate: 495 },
+        { id: 58, name: "Sunflower Oil (1L)", mrp: 295, rate: 295 },
+        { id: 59, name: "Groundnut Oil (1L)", mrp: 395, rate: 395 },
+        { id: 60, name: "Mustard Oil (1L)", mrp: 295, rate: 295 },
+        { id: 61, name: "Cinnamon Capsule", mrp: 250, rate: 250 },
+        { id: 62, name: "Moringa Capsule", mrp: 250, rate: 250 },
+        { id: 63, name: "Arjuna Capsule", mrp: 225, rate: 225 },
+        { id: 64, name: "Garcinia Cambogia Capsule", mrp: 295, rate: 295 },
+        { id: 65, name: "Spirulina Capsule", mrp: 295, rate: 295 },
+        { id: 66, name: "Flaxseed Oil Capsule", mrp: 395, rate: 395 },
+        { id: 67, name: "Beautiful Skin Capsule", mrp: 295, rate: 295 },
+        { id: 68, name: "Liver Kidney Care Capsule", mrp: 250, rate: 250 },
+        { id: 69, name: "Kalmegh Capsule", mrp: 225, rate: 225 },
+        { id: 70, name: "Oh-Boy! Capsule", mrp: 495, rate: 495 },
+        { id: 71, name: "Triphala Capsule", mrp: 225, rate: 225 },
+        { id: 72, name: "Turmeric Formula Capsule", mrp: 295, rate: 295 },
+        { id: 73, name: "Neem Capsule", mrp: 225, rate: 225 },
+        { id: 74, name: "Brahmi Capsule", mrp: 250, rate: 250 },
+        { id: 75, name: "Ashwagandha Capsule", mrp: 250, rate: 250 },
+        { id: 76, name: "Amalaki Capsule", mrp: 225, rate: 225 },
+        { id: 77, name: "Shatavari Capsule", mrp: 225, rate: 225 },
+        { id: 78, name: "Gokshura Capsule", mrp: 250, rate: 250 },
+        { id: 79, name: "Bowelcare Capsule", mrp: 225, rate: 225 },
+        { id: 80, name: "Immunity Capsule", mrp: 250, rate: 250 },
+        { id: 81, name: "Prostate Care Capsule", mrp: 295, rate: 295 },
+        { id: 82, name: "Women's Well-being Capsule", mrp: 250, rate: 250 },
+        { id: 83, name: "Breathe Free Capsule", mrp: 250, rate: 250 },
+        { id: 84, name: "Lipid Care Capsule", mrp: 250, rate: 250 },
+        { id: 85, name: "Sugar Balance Capsule", mrp: 295, rate: 295 },
+        { id: 86, name: "Flexibility Capsule", mrp: 250, rate: 250 },
+        { id: 87, name: "Osteoseal Capsule", mrp: 250, rate: 250 },
+        { id: 88, name: "Weight Balance Capsule", mrp: 295, rate: 295 },
+        { id: 89, name: "Wheat Grass Powder", mrp: 350, rate: 350 },
+        { id: 90, name: "Moringa Powder", mrp: 250, rate: 250 },
+        { id: 91, name: "Sat Isabgol Whole Husk", mrp: 225, rate: 225 },
+        { id: 92, name: "Triphala Powder", mrp: 150, rate: 150 },
+        { id: 93, name: "Jaggery Powder", mrp: 120, rate: 120 },
+        { id: 94, name: "Multifloral Honey", mrp: 250, rate: 250 },
+        { id: 95, name: "Desi Khandsari Sugar", mrp: 130, rate: 130 },
+        { id: 96, name: "Stevia", mrp: 295, rate: 295 },
+        { id: 97, name: "Tulsi Masala Chai", mrp: 180, rate: 180 },
+        { id: 98, name: "Tulsi Original", mrp: 174, rate: 174 },
+        { id: 99, name: "Tulsi Ginger", mrp: 174, rate: 174 },
+        { id: 100, name: "Tulsi Ginger Turmeric", mrp: 190, rate: 190 },
+        { id: 101, name: "Tulsi Peppermint Refresh", mrp: 190, rate: 190 },
+        { id: 102, name: "Simply Chamomile", mrp: 199, rate: 199 },
+        { id: 103, name: "Tulsi Honey Chamomile", mrp: 199, rate: 199 },
+        { id: 104, name: "Moringa Hibiscus", mrp: 190, rate: 190 },
+        { id: 105, name: "Tulsi Mulethi", mrp: 180, rate: 180 },
+        { id: 106, name: "Tulsi Sweet Rose", mrp: 199, rate: 199 },
+        { id: 107, name: "Tulsi Green Tea Classic", mrp: 174, rate: 174 },
+        { id: 108, name: "Tulsi Green Tea Lemon Ginger", mrp: 180, rate: 180 },
+        { id: 109, name: "Tulsi Green Tea Jasmine", mrp: 190, rate: 190 },
+        { id: 110, name: "Tulsi Detox Kahwa", mrp: 199, rate: 199 },
+        { id: 111, name: "Tulsi Green Tea Honey Lemon", mrp: 190, rate: 190 },
+        { id: 112, name: "Tulsi Green Tea Pomegranate", mrp: 190, rate: 190 },
+        { id: 113, name: "Tulsi Green Tea Ashwagandha", mrp: 190, rate: 190 },
+        { id: 114, name: "Tulsi Green Tea Sweet Lemon", mrp: 190, rate: 190 }
+    ];
     const views = ['routesView', 'shopsView', 'productsView'];
     let history = ['routesView'];
 
     function showView(viewId, title, showBack) {
-        views.forEach(v => {
-            let el = document.getElementById(v);
-            el.classList.remove('active');
-        });
-        
-        let activeEl = document.getElementById(viewId);
-        activeEl.classList.add('active');
-        
+        views.forEach(v => { document.getElementById(v).classList.remove('active'); });
+        document.getElementById(viewId).classList.add('active');
         document.getElementById('headerTitle').innerText = title;
         document.getElementById('backBtn').style.display = showBack ? 'block' : 'none';
-        
-        if(viewId !== 'productsView') {
-            document.getElementById('bottomBar').style.display = 'none';
-        } else {
-            updateCartTotal(); 
-        }
+        if(viewId !== 'productsView') { document.getElementById('bottomBar').style.display = 'none'; } 
+        else { updateCartTotal(); }
     }
 
     function goBack() {
         history.pop();
         let prev = history[history.length - 1];
-        if (prev === 'routesView') {
-            showView(prev, 'Sales Routes', false);
-        } else if (prev === 'shopsView') {
-            showView(prev, currentRoute, true);
-        }
+        if (prev === 'routesView') showView(prev, 'Sales Routes', false);
+        else if (prev === 'shopsView') showView(prev, currentRoute, true);
     }
 
     function openRoute(routeName) {
@@ -245,8 +381,7 @@
                         <div class="list-item-sub">Tap to select shop & add products</div>
                     </div>
                     <i class="fas fa-chevron-right list-icon"></i>
-                </div>
-            `;
+                </div>`;
         });
         document.getElementById('shopsList').innerHTML = html;
     }
@@ -255,7 +390,6 @@
         document.getElementById('newShopName').value = '';
         let select = document.getElementById('insertAfterShop');
         let html = '<option value="-1">--- Sabse Upar (Top) ---</option>';
-        
         let list = shopsDB[currentRoute] || [];
         list.forEach((shop, index) => {
             let selected = (index === list.length - 1) ? 'selected' : '';
@@ -265,23 +399,15 @@
         document.getElementById('addShopModal').style.display = 'flex';
     }
 
-    function closeAddShopModal() {
-        document.getElementById('addShopModal').style.display = 'none';
-    }
+    function closeAddShopModal() { document.getElementById('addShopModal').style.display = 'none'; }
 
     function saveNewShop() {
         let name = document.getElementById('newShopName').value.trim();
         if(!name) { alert("Dukan ka naam likhna zaroori hai!"); return; }
-
         let index = parseInt(document.getElementById('insertAfterShop').value);
         let newShop = { id: 'new_' + Date.now(), name: name };
-
-        if(index === -1) {
-            shopsDB[currentRoute].unshift(newShop);
-        } else {
-            shopsDB[currentRoute].splice(index + 1, 0, newShop);
-        }
-
+        if(index === -1) shopsDB[currentRoute].unshift(newShop);
+        else shopsDB[currentRoute].splice(index + 1, 0, newShop);
         localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
         closeAddShopModal();
         renderShopsList();
@@ -300,7 +426,6 @@
     function renderShopHeader() {
         let shop = shopsDB[currentRoute].find(s => s.id === currentShopId);
         let locIconClass = (shop.gpsSaved || shop.url) ? 'active-gps' : '';
-        
         let html = `
             <div class="shop-header-card">
                 <div>
@@ -311,8 +436,7 @@
                     <button class="btn-icon ${locIconClass}" onclick="saveGPS('${currentRoute}', '${shop.id}')"><i class="fas fa-map-marker-alt"></i></button>
                     <button class="btn-icon" onclick="navigateShop('${currentRoute}', '${shop.id}')"><i class="fas fa-location-arrow"></i></button>
                 </div>
-            </div>
-        `;
+            </div>`;
         document.getElementById('shopHeaderContainer').innerHTML = html;
     }
 
@@ -326,23 +450,15 @@
                 localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
                 alert(shop.name + " ki location save ho gayi!");
                 renderShopHeader(); 
-            }, function(error) {
-                alert("GPS error. Location on kijiye aur permission dijiye.");
-            });
-        } else {
-            alert("Aapka device GPS support nahi karta.");
-        }
+            }, function(error) { alert("GPS error. Location on kijiye aur permission dijiye."); });
+        } else { alert("Aapka device GPS support nahi karta."); }
     }
 
     function navigateShop(route, shopId) {
         let shop = shopsDB[route].find(s => s.id === shopId);
-        if(shop.url) {
-            window.open(shop.url, '_blank');
-        } else if (shop.lat && shop.lng) {
-            window.open(`https://www.google.com/maps/search/?api=1&query=${shop.lat},${shop.lng}`, '_blank');
-        } else {
-            alert("Pehle 📍 button daba kar location save karein.");
-        }
+        if(shop.url) window.open(shop.url, '_blank');
+        else if (shop.lat && shop.lng) window.open(`https://www.google.com/maps/search/?api=1&query=${shop.lat},${shop.lng}`, '_blank');
+        else alert("Pehle 📍 button daba kar location save karein.");
     }
 
     function renderProducts() {
@@ -350,15 +466,13 @@
         productsDB.forEach(p => {
             let schemeText = p.bandha ? `Min 1 bandha (${p.bandha} pcs)` : "";
             if(p.scheme) schemeText += (schemeText ? " | " : "") + p.scheme;
-
             let qty = cart[p.id]?.qty || 0;
             let currentRateText = calculateApplicableRate(p, qty);
-            
-            // UI me agar Rate aur MRP same hain, toh "Regular rate" dikhega
             let displayRateUI = (currentRateText == p.mrp) ? "Regular rate" : "₹" + currentRateText;
             
+            // onchange use kiya hai, type karne ke baad check hoga
             html += `
-                <div class="product-card product-item">
+                <div class="product-card product-item" id="card_${p.id}">
                     <div class="product-header">
                         <div>
                             <div class="list-item-title">${p.name}</div>
@@ -370,12 +484,11 @@
                     <div class="qty-wrapper">
                         <div class="qty-controls">
                             <button class="qty-btn" onclick="updateQty(${p.id}, -1)"><i class="fas fa-minus" style="font-size:12px;"></i></button>
-                            <input type="number" class="qty-input" id="qty_${p.id}" value="${qty}" oninput="manualQty(${p.id})">
+                            <input type="number" class="qty-input" id="qty_${p.id}" value="${qty}" onchange="manualQty(${p.id})">
                             <button class="qty-btn" onclick="updateQty(${p.id}, 1)"><i class="fas fa-plus" style="font-size:12px;"></i></button>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
         document.getElementById('productsList').innerHTML = html;
     }
@@ -385,10 +498,7 @@
         if(product.slabs) {
             let sortedSlabs = [...product.slabs].sort((a,b) => b.min - a.min); 
             for(let slab of sortedSlabs) {
-                if(qty >= slab.min) {
-                    finalRate = slab.rate;
-                    break;
-                }
+                if(qty >= slab.min) { finalRate = slab.rate; break; }
             }
         }
         return finalRate;
@@ -398,8 +508,22 @@
         let p = productsDB.find(x => x.id === pId);
         let input = document.getElementById(`qty_${pId}`);
         let current = parseInt(input.value) || 0;
-        let step = p.bandha ? p.bandha : 1;
-        let newQty = current + (change * step);
+        let newQty;
+        
+        if (change > 0) {
+            if (current === 0) {
+                newQty = p.minQty ? p.minQty : (p.bandha ? p.bandha : 1);
+            } else {
+                let step = p.bandha ? p.bandha : 1;
+                newQty = current + step;
+            }
+        } else {
+            let step = p.bandha ? p.bandha : 1;
+            newQty = current - step;
+            let minRequired = p.minQty || p.bandha || 0;
+            if (minRequired && newQty > 0 && newQty < minRequired) { newQty = 0; }
+        }
+        
         if (newQty < 0) newQty = 0;
         input.value = newQty;
         processCart(p, newQty);
@@ -409,21 +533,26 @@
         let p = productsDB.find(x => x.id === pId);
         let input = document.getElementById(`qty_${pId}`);
         let newQty = parseInt(input.value) || 0;
+        
+        let minRequired = p.minQty || p.bandha || 1;
+        
+        if (newQty > 0 && newQty < minRequired) {
+            alert(p.name + " ke liye kam se kam " + minRequired + " quantity order karni hogi!");
+            newQty = 0; 
+            input.value = newQty;
+        }
+        
         if(newQty < 0) newQty = 0;
         processCart(p, newQty);
     }
 
     function processCart(product, qty) {
         let actualRate = calculateApplicableRate(product, qty);
-        
         let displayRateUI = (actualRate == product.mrp) ? "Regular rate" : "₹" + actualRate;
         document.getElementById(`rate_${product.id}`).innerText = displayRateUI;
 
-        if (qty > 0) {
-            cart[product.id] = { p: product, qty: qty, actualRate: actualRate };
-        } else {
-            delete cart[product.id];
-        }
+        if (qty > 0) { cart[product.id] = { p: product, qty: qty, actualRate: actualRate }; } 
+        else { delete cart[product.id]; }
         updateCartTotal();
     }
 
@@ -434,20 +563,15 @@
             totalAmt += (cart[key].actualRate * cart[key].qty);
             totalItems++;
         }
-        
         document.getElementById('totalVal').innerText = totalAmt.toFixed(2);
         document.getElementById('totalItems').innerText = totalItems;
         
-        if(totalItems > 0) {
-            document.getElementById('bottomBar').style.display = 'flex';
-        } else {
-            document.getElementById('bottomBar').style.display = 'none';
-        }
+        if(totalItems > 0) document.getElementById('bottomBar').style.display = 'flex';
+        else document.getElementById('bottomBar').style.display = 'none';
     }
 
     function generateWhatsApp() {
         if(Object.keys(cart).length === 0) return;
-        
         let msg = `*${currentShop}*\n*${currentRoute}*\n\n`;
         
         for (let key in cart) {
@@ -458,16 +582,11 @@
             if (p.bandha && item.qty >= p.bandha) {
                 let bandhaCount = Math.floor(item.qty / p.bandha);
                 let loosePcs = item.qty % p.bandha;
-                if (loosePcs === 0) {
-                    qtyText = `${bandhaCount} Bandha (${item.qty} pcs)`;
-                } else {
-                    qtyText = `${bandhaCount} Bandha & ${loosePcs} pcs (${item.qty} pcs)`;
-                }
+                if (loosePcs === 0) qtyText = `${bandhaCount} Bandha (${item.qty} pcs)`;
+                else qtyText = `${bandhaCount} Bandha & ${loosePcs} pcs (${item.qty} pcs)`;
             }
 
             let displayRate = (item.actualRate == p.mrp) ? "Regular rate" : item.actualRate;
-
-            // 'Item:' prefix hata diya gaya hai
             msg += `${p.name}\nMrp: ${p.mrp}\nRate: ${displayRate}\nQuantity: ${qtyText}\n\n`;
         }
         
@@ -490,6 +609,104 @@
         for (let i = 0; i < items.length; i++) {
             let txtValue = items[i].textContent || items[i].innerText;
             items[i].style.display = txtValue.toLowerCase().indexOf(input) > -1 ? "" : "none";
+        }
+    }
+    // ==========================================
+    // SMART VOICE AI WITH MIN-QTY CHECK
+    // ==========================================
+    function startVoiceRecognition() {
+        if (!('webkitSpeechRecognition' in window)) {
+            alert("Aapka browser Voice feature support nahi karta. Google Chrome use karein.");
+            return;
+        }
+
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-IN';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        const micBtn = document.getElementById('micBtn');
+        
+        recognition.onstart = function() {
+            micBtn.style.background = '#ff4757'; 
+            micBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; 
+        };
+
+        recognition.onresult = function(event) {
+            let transcript = event.results[0][0].transcript.toLowerCase();
+            processVoiceCommand(transcript);
+        };
+
+        recognition.onerror = function(event) {
+            alert("Awaaz clear nahi aayi. Firse try karein.");
+            resetMicBtn();
+        };
+
+        recognition.onend = function() {
+            resetMicBtn();
+        };
+
+        function resetMicBtn() {
+            micBtn.style.background = 'var(--wa-dark)';
+            micBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+        }
+
+        recognition.start();
+    }
+
+    function processVoiceCommand(text) {
+        let hindiNumbers = {'ek':'1', 'do':'2', 'teen':'3', 'char':'4', 'paanch':'5', 'che':'6', 'saat':'7', 'aath':'8', 'nau':'9', 'das':'10'};
+        for(let key in hindiNumbers) {
+            text = text.replace(new RegExp('\\b'+key+'\\b', 'g'), hindiNumbers[key]);
+        }
+
+        let cleanText = text.replace(/\b\d+\s*mrp\b/g, ''); 
+        let qtyMatch = cleanText.match(/\d+/);
+        let spokenQty = qtyMatch ? parseInt(qtyMatch[0]) : 1; 
+        
+        let query = cleanText.replace(/\d+/g, '').replace(/pcs|piece|pieces|packet|pouch/g, '').trim();
+        let queryWords = query.split(' ').filter(w => w.length > 2); 
+
+        let bestMatch = null;
+        let highestScore = 0;
+
+        productsDB.forEach(p => {
+            let pName = p.name.toLowerCase();
+            let score = 0;
+            queryWords.forEach(w => { if (pName.includes(w)) score++; });
+            if (text.includes(p.mrp + " mrp") || text.includes(p.mrp + "mrp")) score += 2;
+            
+            if (score > highestScore) {
+                highestScore = score;
+                bestMatch = p;
+            }
+        });
+
+        if (bestMatch && highestScore > 0) {
+            let currentQty = cart[bestMatch.id] ? cart[bestMatch.id].qty : 0;
+            let newQty = currentQty + spokenQty; 
+            
+            // Voice command minimum qty check logic
+            let minRequired = bestMatch.minQty || bestMatch.bandha || 1;
+            if (newQty > 0 && newQty < minRequired) {
+                newQty = minRequired; // Automatically correct to min required
+                alert(`Aapne bola ${spokenQty}, lekin ${bestMatch.name} ke liye minimum ${minRequired} required hai. System ne ${minRequired} add kar diya hai.`);
+            }
+
+            let input = document.getElementById(`qty_${bestMatch.id}`);
+            if(input) {
+                input.value = newQty;
+                processCart(bestMatch, newQty);
+                
+                let card = document.getElementById(`card_${bestMatch.id}`);
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                let originalBg = card.style.background;
+                card.style.background = '#e8f5e9'; 
+                setTimeout(() => { card.style.background = originalBg; }, 1500);
+            }
+        } else {
+            alert(`Sorry, aapne bola: "${text}". Ye product list mein nahi mila.`);
         }
     }
 </script>
