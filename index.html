@@ -656,43 +656,70 @@
         recognition.start();
     }
 
-    function processVoiceCommand(text) {
-        let hindiNumbers = {'ek':'1', 'do':'2', 'teen':'3', 'char':'4', 'paanch':'5', 'che':'6', 'saat':'7', 'aath':'8', 'nau':'9', 'das':'10'};
+        function processVoiceCommand(text) {
+        // 1. Hindi numbers aur words ko digit me badalna
+        let hindiNumbers = {'ek':'1', 'do':'2', 'teen':'3', 'char':'4', 'paanch':'5', 'che':'6', 'saat':'7', 'aath':'8', 'nau':'9', 'das':'10', 'bees':'20', 'pachas':'50'};
         for(let key in hindiNumbers) {
             text = text.replace(new RegExp('\\b'+key+'\\b', 'g'), hindiNumbers[key]);
         }
 
+        // 2. "10 mrp" jaisa kuch bola ho to use alag se nikalna taaki accuracy 100% ho
+        let mrpMatch = text.match(/\b(\d+)\s*mrp\b/);
+        let spokenMrp = mrpMatch ? parseInt(mrpMatch[1]) : null;
         let cleanText = text.replace(/\b\d+\s*mrp\b/g, ''); 
+        
+        // 3. Bachi hui string se Quantity nikalna
         let qtyMatch = cleanText.match(/\d+/);
         let spokenQty = qtyMatch ? parseInt(qtyMatch[0]) : 1; 
         
-        let query = cleanText.replace(/\d+/g, '').replace(/pcs|piece|pieces|packet|pouch/g, '').trim();
+        // 4. Sirf main naam nikalna (baaki fालतू words hatana)
+        let query = cleanText.replace(/\d+/g, '').replace(/pcs|piece|pieces|packet|pouch|bandha/g, '').trim().toLowerCase();
         let queryWords = query.split(' ').filter(w => w.length > 2); 
 
         let bestMatch = null;
         let highestScore = 0;
 
+        // 5. SMART AI MATCHING (Fuzzy Logic)
         productsDB.forEach(p => {
             let pName = p.name.toLowerCase();
             let score = 0;
-            queryWords.forEach(w => { if (pName.includes(w)) score++; });
-            if (text.includes(p.mrp + " mrp") || text.includes(p.mrp + "mrp")) score += 2;
             
+            // Agar exact aawaaz match ho gayi
+            if (pName.includes(query) && query.length > 3) score += 10;
+
+            // Agar toote-phoote words match ho rahe hain
+            queryWords.forEach(w => {
+                if (pName.includes(w)) score += 3;
+                
+                // Spelling mistake fix (Jaise 'Haka' bole to 'Hakka' samajh jaye)
+                pName.split(' ').forEach(pw => {
+                    if (pw.length > 3 && w.length > 3 && (pw.startsWith(w.substring(0,3)) || w.startsWith(pw.substring(0,3)))) {
+                        score += 1.5;
+                    }
+                });
+            });
+
+            // Agar MRP bhi perfectly match kar gaya, to guarantee wahi item hai
+            if (spokenMrp && p.mrp === spokenMrp) {
+                score += 8; 
+            }
+
+            // Highest score wale item ko select karna
             if (score > highestScore) {
                 highestScore = score;
                 bestMatch = p;
             }
         });
 
-        if (bestMatch && highestScore > 0) {
+        // Agar thoda sa bhi match mil gaya (Score > 1.5)
+        if (bestMatch && highestScore > 1.5) {
             let currentQty = cart[bestMatch.id] ? cart[bestMatch.id].qty : 0;
             let newQty = currentQty + spokenQty; 
             
-            // Voice command minimum qty check logic
             let minRequired = bestMatch.minQty || bestMatch.bandha || 1;
             if (newQty > 0 && newQty < minRequired) {
-                newQty = minRequired; // Automatically correct to min required
-                alert(`Aapne bola ${spokenQty}, lekin ${bestMatch.name} ke liye minimum ${minRequired} required hai. System ne ${minRequired} add kar diya hai.`);
+                newQty = minRequired; 
+                alert(`Aapne ${spokenQty} bola, lekin ${bestMatch.name} me minimum ${minRequired} zaroori hai. System ne auto-add kar diya hai.`);
             }
 
             let input = document.getElementById(`qty_${bestMatch.id}`);
@@ -708,9 +735,11 @@
                 setTimeout(() => { card.style.background = originalBg; }, 1500);
             }
         } else {
-            alert(`Sorry, aapne bola: "${text}". Ye product list mein nahi mila.`);
+            // Agar samajh me nahi aaya to alert dekar batayega kya sunai diya
+            alert(`Awaaz clear nahi thi. System ko sunai diya: "${text}". Kripya dobara bolein.`);
         }
     }
+
 </script>
 </body>
 </html>
