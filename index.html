@@ -4,58 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sales Order App</title>
+    <!-- Import Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --wa-dark: #075E54;
-            --wa-light: #128C7E;
-            --wa-green: #25D366;
-            --bg-color: #f0f2f5;
-            --card-bg: #ffffff;
-            --text-main: #111b21;
-            --text-muted: #667781;
+        :root { 
+            --primary-grad: linear-gradient(135deg, #075E54 0%, #128C7E 100%);
+            --wa-green: #25D366; 
+            --bg-color: #f4f7f6; 
+            --card-bg: #ffffff; 
+            --text-main: #2c3e50; 
+            --text-muted: #7f8c8d;
+            --accent: #e8f5e9;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); -webkit-tap-highlight-color: transparent; }
         
-        header { background-color: var(--wa-dark); color: white; padding: 15px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-        .back-btn { background: none; border: none; color: white; font-size: 20px; margin-right: 15px; display: none; cursor: pointer; }
-        h1 { font-size: 18px; font-weight: 500; flex-grow: 1; }
+        /* Modern Header */
+        header { 
+            background: var(--primary-grad); 
+            color: white; 
+            padding: 16px 20px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            display: flex; 
+            align-items: center; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+        .back-btn { background: none; border: none; color: white; font-size: 20px; margin-right: 15px; display: none; cursor: pointer; transition: 0.2s; }
+        .back-btn:active { transform: scale(0.9); }
+        h1 { font-size: 19px; font-weight: 600; flex-grow: 1; letter-spacing: 0.5px; }
         
-        .view { display: none; padding: 10px; padding-bottom: 80px; }
+        .view { display: none; padding: 15px; padding-bottom: 100px; animation: fadeIn 0.3s ease; }
         .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .list-item { background: var(--card-bg); padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .list-item-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
-        .list-item-sub { font-size: 13px; color: var(--text-muted); }
+        /* Premium List Items */
+        .list-item { 
+            background: var(--card-bg); 
+            padding: 18px; 
+            margin-bottom: 12px; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: 0.2s;
+        }
+        .list-item:active { transform: scale(0.98); background: #fdfdfd; }
+        .list-item-title { font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
+        .list-item-sub { font-size: 12px; color: var(--text-muted); }
+        .list-icon { color: var(--wa-green); font-size: 20px; opacity: 0.8; }
         
-        .shop-header-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--wa-dark); }
-        .shop-actions { display: flex; gap: 10px; }
-        .btn-icon { background: var(--bg-color); border: none; padding: 10px; border-radius: 50%; color: var(--wa-dark); font-size: 16px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
-        .btn-icon.active-gps { color: var(--wa-green); background: #e8f5e9; }
+        /* Shop Header */
+        .shop-header-card { 
+            background: var(--primary-grad); 
+            color: white;
+            padding: 18px; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 15px rgba(18,140,126,0.2); 
+            margin-bottom: 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .shop-header-card .list-item-title { color: white; font-size: 18px; }
+        .shop-header-card .list-item-sub { color: rgba(255,255,255,0.8); }
+        .shop-actions { display: flex; gap: 12px; }
+        .btn-icon { background: rgba(255,255,255,0.2); border: none; padding: 10px; border-radius: 50%; color: white; font-size: 16px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .btn-icon.active-gps { background: white; color: var(--wa-dark); box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        /* Premium Product Card */
+        .product-card { 
+            background: var(--card-bg); 
+            padding: 16px; 
+            margin-bottom: 12px; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .product-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .product-price { color: var(--wa-dark); font-weight: 700; font-size: 16px; background: var(--accent); padding: 4px 10px; border-radius: 8px; }
+        .product-scheme { font-size: 11px; font-weight: 600; color: #d32f2f; background: #ffebee; padding: 3px 8px; border-radius: 6px; display: inline-block; margin-top: 6px; }
+        
+        /* Modern Qty Controls */
+        .qty-wrapper { display: flex; justify-content: flex-end; align-items: center; border-top: 1px solid #f0f0f0; padding-top: 12px; margin-top: 5px; }
+        .qty-controls { display: flex; align-items: center; justify-content: space-between; background: var(--bg-color); border-radius: 10px; padding: 4px; width: 130px; }
+        .qty-btn { background: white; border: 1px solid #e0e0e0; width: 32px; height: 32px; border-radius: 8px; font-size: 18px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .qty-input { width: 45px; border: none; background: transparent; text-align: center; font-size: 15px; font-weight: 700; outline: none; color: var(--wa-dark); }
+        
+        /* Floating Bottom Bar */
+        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; z-index: 100; display: none; border-top-left-radius: 20px; border-top-right-radius: 20px; }
+        .total-amount { font-size: 20px; font-weight: 700; color: var(--wa-dark); line-height: 1.2; }
+        .btn-primary { background: var(--primary-grad); color: white; border: none; padding: 14px 24px; border-radius: 30px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(18,140,126,0.3); transition: 0.3s; }
+        .btn-primary:active { transform: translateY(2px); }
+        
+        /* Search Box */
+        .search-box { width: 100%; padding: 14px 20px; border: 1px solid #e0e0e0; border-radius: 12px; margin-bottom: 15px; font-size: 14px; outline: none; background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>') no-repeat right 15px center; font-family: 'Poppins', sans-serif; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .search-box:focus { border-color: var(--wa-light); box-shadow: 0 0 0 3px rgba(18,140,126,0.1); }
+        
+        /* Creator Branding */
+        .creator-badge { text-align: center; margin-top: 30px; margin-bottom: 20px; font-size: 13px; color: var(--text-muted); }
+        .creator-badge span { font-weight: 600; color: var(--wa-dark); letter-spacing: 0.5px; }
 
-        .product-card { background: var(--card-bg); padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-        .product-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .product-price { color: var(--wa-dark); font-weight: bold; }
-        .product-scheme { font-size: 12px; color: #d32f2f; background: #ffebee; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
-        
-        .qty-controls { display: flex; align-items: center; justify-content: space-between; background: var(--bg-color); border-radius: 25px; padding: 5px; width: 140px; }
-        .qty-btn { background: white; border: none; width: 35px; height: 35px; border-radius: 50%; font-size: 18px; font-weight: bold; color: var(--wa-dark); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .qty-input { width: 50px; border: none; background: transparent; text-align: center; font-size: 16px; font-weight: bold; outline: none; }
-        
-        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; z-index: 100; display: none; transition: 0.3s; }
-        .total-amount { font-size: 18px; font-weight: bold; color: var(--text-main); }
-        .btn-primary { background-color: var(--wa-green); color: white; border: none; padding: 12px 24px; border-radius: 24px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        
-        .search-box { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; font-size: 15px; outline: none; }
-        .search-box:focus { border-color: var(--wa-light); }
-        
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; display: none; align-items: center; justify-content: center; }
-        .modal-box { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; }
-        .modal-title { font-size: 18px; margin-bottom: 15px; font-weight: bold; color: var(--text-main); }
+        /* Modals */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 999; display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+        .modal-box { background: white; padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease; }
+        .modal-title { font-size: 18px; margin-bottom: 15px; font-weight: 700; color: var(--text-main); }
         .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-outline { background: transparent; border: 1px solid #ddd; color: var(--text-main); padding: 12px; border-radius: 8px; flex: 1; cursor: pointer; font-weight: bold; }
-        .btn-save { background: var(--wa-green); border: none; color: white; padding: 12px; border-radius: 8px; flex: 1; font-weight: bold; cursor: pointer; }
+        .btn-outline { background: #f0f2f5; border: none; color: var(--text-main); padding: 12px; border-radius: 10px; flex: 1; cursor: pointer; font-weight: 600; }
+        .btn-save { background: var(--primary-grad); border: none; color: white; padding: 12px; border-radius: 10px; flex: 1; font-weight: 600; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -66,17 +128,40 @@
     </header>
 
     <div id="routesView" class="view active">
-        <div class="list-item" onclick="openRoute('Monday - Akota')"><div class="list-item-title">Monday - Akota</div></div>
-        <div class="list-item" onclick="openRoute('Tuesday - Sama')"><div class="list-item-title">Tuesday - Sama</div></div>
-        <div class="list-item" onclick="openRoute('Wednesday')"><div class="list-item-title">Wednesday</div></div>
-        <div class="list-item" onclick="openRoute('Thursday - Laxmipura')"><div class="list-item-title">Thursday - Laxmipura</div></div>
-        <div class="list-item" onclick="openRoute('Friday - Diwalipura')"><div class="list-item-title">Friday - Diwalipura</div></div>
-        <div class="list-item" onclick="openRoute('Saturday - Kalali')"><div class="list-item-title">Saturday - Kalali</div></div>
+        <div class="list-item" onclick="openRoute('Monday - Akota')">
+            <div><div class="list-item-title">Monday - Akota</div><div class="list-item-sub">View shops on this route</div></div>
+            <i class="fas fa-chevron-right list-icon"></i>
+        </div>
+        <div class="list-item" onclick="openRoute('Tuesday - Sama')">
+            <div><div class="list-item-title">Tuesday - Sama</div><div class="list-item-sub">View shops on this route</div></div>
+            <i class="fas fa-chevron-right list-icon"></i>
+        </div>
+        <div class="list-item" onclick="openRoute('Wednesday - Nawayard')">
+            <div><div class="list-item-title">Wednesday - Nawayard</div><div class="list-item-sub">View shops on this route</div></div>
+            <i class="fas fa-chevron-right list-icon"></i>
+        </div>
+        <div class="list-item" onclick="openRoute('Thursday - Laxmipura')">
+            <div><div class="list-item-title">Thursday - Laxmipura</div><div class="list-item-sub">View shops on this route</div></div>
+            <i class="fas fa-chevron-right list-icon"></i>
+        </div>
+        <div class="list-item" onclick="openRoute('Friday - Diwalipura')">
+            <div><div class="list-item-title">Friday - Diwalipura</div><div class="list-item-sub">View shops on this route</div></div>
+            <i class="fas fa-chevron-right list-icon"></i>
+        </div>
+        <div class="list-item" onclick="openRoute('Saturday - Kalali')">
+            <div><div class="list-item-title">Saturday - Kalali</div><div class="list-item-sub">View shops on this route</div></div>
+            <i class="fas fa-chevron-right list-icon"></i>
+        </div>
+        
+        <!-- FAIZAN SHAIKH BRANDING -->
+        <div class="creator-badge">
+            Developed with <i class="fas fa-heart" style="color: #ff4757;"></i> by <br> <span>FAIZAN SHAIKH</span>
+        </div>
     </div>
 
     <div id="shopsView" class="view">
         <input type="text" class="search-box" id="shopSearch" placeholder="Search Shop..." onkeyup="filterShops()">
-        <button class="btn-primary" style="width: 100%; border-radius: 8px; margin-bottom: 15px;" onclick="openAddShopModal()">
+        <button class="btn-primary" style="width: 100%; border-radius: 12px; margin-bottom: 20px; padding: 12px;" onclick="openAddShopModal()">
             <i class="fas fa-plus"></i> Add New Shop
         </button>
         <div id="shopsList"></div>
@@ -90,8 +175,8 @@
 
     <div id="bottomBar" class="bottom-bar">
         <div>
+            <div class="list-item-sub" style="font-weight:600;"><span id="totalItems">0</span> Items Selected</div>
             <div class="total-amount">₹<span id="totalVal">0.00</span></div>
-            <div class="list-item-sub"><span id="totalItems">0</span> Items</div>
         </div>
         <button class="btn-primary" onclick="generateWhatsApp()">
             <i class="fab fa-whatsapp" style="font-size: 20px;"></i> Send Order
@@ -100,18 +185,16 @@
 
     <div id="addShopModal" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-title">Nayi Dukan Add Karein</div>
-            <input type="text" id="newShopName" class="search-box" placeholder="Dukan ka naam likhein..." style="margin-bottom: 10px;">
-            <label style="font-size: 13px; color: var(--text-muted); margin-bottom: 5px; display: block;">Kis dukan ke baad add karni hai?</label>
-            <select id="insertAfterShop" class="search-box" style="margin-bottom: 0;">
-            </select>
+            <div class="modal-title">Add New Shop</div>
+            <input type="text" id="newShopName" class="search-box" placeholder="Enter shop name..." style="margin-bottom: 15px; padding-right:15px; background-image:none;">
+            <label style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; display: block;">Insert after which shop?</label>
+            <select id="insertAfterShop" class="search-box" style="margin-bottom: 0; background-image:none; padding-right:15px;"></select>
             <div class="modal-actions">
                 <button class="btn-outline" onclick="closeAddShopModal()">Cancel</button>
                 <button class="btn-save" onclick="saveNewShop()">Save Shop</button>
             </div>
         </div>
     </div>
-
 <script>
     let currentRoute = "";
     let currentShop = "";
@@ -134,7 +217,7 @@
             "Ma General Store", "Jay Ambe Provision Store", "Mapels", "Laxmi Provision Store"
         ].map((n, i) => ({ id: `t_${i+1}`, name: n })),
         
-        "Wednesday": [
+        "Wednesday - Nawayard": [
             "Bajrang Provision Store", "Balaji Medical & Provision Store", "Sunita Provision Store", 
             "Jalaram Provision Store", "Ya Chistiya Provision Store", "Mehboob Provision Store", 
             "Kabirkha Provision Store", "Imran Provision Store", "Pathan Provision Store Opp Imran", 
@@ -183,13 +266,15 @@
         ].map((n, i) => ({ id: `s_${i+1}`, name: n }))
     };
 
-    let shopsDB = JSON.parse(localStorage.getItem('shopsDB')) || defaultShops;
-
-    for(let route in shopsDB) {
-        shopsDB[route] = shopsDB[route].filter(shop => shop.name !== "AVAILABLE FOR FUTURE SHOP");
+    let shopsDB = JSON.parse(localStorage.getItem('shopsDB'));
+    
+    if (shopsDB && shopsDB["Wednesday"]) {
+        shopsDB["Wednesday - Nawayard"] = shopsDB["Wednesday"];
+        delete shopsDB["Wednesday"];
+        localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
     }
-    localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
-
+    
+    if (!shopsDB) { shopsDB = defaultShops; }
     const productsDB = [
         { id: 1, name: "Hakka Noodles Masala", mrp: 10, rate: 8, bandha: 20 },
         { id: 2, name: "Paneer Chili Masala", mrp: 10, rate: 8, bandha: 20 },
@@ -232,7 +317,7 @@
         { id: 39, name: "Tata Sampann Fine Besan 500g", mrp: 75, rate: 40 },
         { id: 40, name: "Tata Sampann Poha 500g", mrp: 57, rate: 33 },
         { id: 41, name: "Tata Soulfull No Maida Rusk Toast", mrp: 40, rate: 30 },
-                { id: 42, name: "Tata Sampann Chilli Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
+        { id: 42, name: "Tata Sampann Chilli Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
         { id: 43, name: "Tata Sampann Turmeric Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
         { id: 44, name: "Sweet Chilli Cashew", mrp: 59, rate: 41 },
         { id: 45, name: "Pudina Cashew", mrp: 59, rate: 41 },
@@ -306,16 +391,18 @@
         { id: 113, name: "Tulsi Green Tea Ashwagandha", mrp: 190, rate: 190 },
         { id: 114, name: "Tulsi Green Tea Sweet Lemon", mrp: 190, rate: 190 }
     ];
-
     const views = ['routesView', 'shopsView', 'productsView'];
     let history = ['routesView'];
 
-        const views = ['routesView', 'shopsView', 'productsView'];
-    let history = ['routesView'];
-
     function showView(viewId, title, showBack) {
-        views.forEach(v => document.getElementById(v).classList.remove('active'));
-        document.getElementById(viewId).classList.add('active');
+        views.forEach(v => {
+            let el = document.getElementById(v);
+            el.classList.remove('active');
+        });
+        
+        let activeEl = document.getElementById(viewId);
+        activeEl.classList.add('active');
+        
         document.getElementById('headerTitle').innerText = title;
         document.getElementById('backBtn').style.display = showBack ? 'block' : 'none';
         
@@ -329,8 +416,11 @@
     function goBack() {
         history.pop();
         let prev = history[history.length - 1];
-        if (prev === 'routesView') showView(prev, 'Sales Routes', false);
-        else if (prev === 'shopsView') showView(prev, currentRoute, true);
+        if (prev === 'routesView') {
+            showView(prev, 'Sales Routes', false);
+        } else if (prev === 'shopsView') {
+            showView(prev, currentRoute, true);
+        }
     }
 
     function openRoute(routeName) {
@@ -350,7 +440,7 @@
                         <div class="list-item-title">${index + 1}. ${shop.name}</div>
                         <div class="list-item-sub">Tap to select shop & add products</div>
                     </div>
-                    <i class="fas fa-chevron-right text-muted"></i>
+                    <i class="fas fa-chevron-right list-icon"></i>
                 </div>
             `;
         });
@@ -359,7 +449,6 @@
     
     function openAddShopModal() {
         document.getElementById('newShopName').value = '';
-        
         let select = document.getElementById('insertAfterShop');
         let html = '<option value="-1">--- Sabse Upar (Top) ---</option>';
         
@@ -368,7 +457,6 @@
             let selected = (index === list.length - 1) ? 'selected' : '';
             html += `<option value="${index}" ${selected}>Iske baad: ${shop.name}</option>`;
         });
-        
         select.innerHTML = html;
         document.getElementById('addShopModal').style.display = 'flex';
     }
@@ -400,7 +488,6 @@
         currentShopId = shopId;
         cart = {}; 
         history.push('productsView');
-        
         renderShopHeader();
         renderProducts();
         showView('productsView', 'Order', true);
@@ -463,22 +550,21 @@
             let qty = cart[p.id]?.qty || 0;
             let currentRateText = calculateApplicableRate(p, qty);
             
-            // Yahan oninput lagaya gaya hai taaki manual typing turant update ho
             html += `
                 <div class="product-card product-item">
                     <div class="product-header">
                         <div>
                             <div class="list-item-title">${p.name}</div>
                             ${schemeText ? `<div class="product-scheme">${schemeText}</div>` : ''}
-                            <div class="list-item-sub">MRP: ₹${p.mrp}</div>
+                            <div class="list-item-sub" style="margin-top: 4px;">MRP: ₹${p.mrp}</div>
                         </div>
                         <div class="product-price">Rate: ₹<span id="rate_${p.id}">${currentRateText}</span></div>
                     </div>
-                    <div style="display:flex; justify-content: flex-end;">
+                    <div class="qty-wrapper">
                         <div class="qty-controls">
-                            <button class="qty-btn" onclick="updateQty(${p.id}, -1)">-</button>
+                            <button class="qty-btn" onclick="updateQty(${p.id}, -1)"><i class="fas fa-minus" style="font-size:12px;"></i></button>
                             <input type="number" class="qty-input" id="qty_${p.id}" value="${qty}" oninput="manualQty(${p.id})">
-                            <button class="qty-btn" onclick="updateQty(${p.id}, 1)">+</button>
+                            <button class="qty-btn" onclick="updateQty(${p.id}, 1)"><i class="fas fa-plus" style="font-size:12px;"></i></button>
                         </div>
                     </div>
                 </div>
@@ -505,16 +591,13 @@
         let p = productsDB.find(x => x.id === pId);
         let input = document.getElementById(`qty_${pId}`);
         let current = parseInt(input.value) || 0;
-        
         let step = p.bandha ? p.bandha : 1;
         let newQty = current + (change * step);
         if (newQty < 0) newQty = 0;
-        
         input.value = newQty;
         processCart(p, newQty);
     }
 
-    // Manual typing properly parse karne ke liye fix kiya gaya
     function manualQty(pId) {
         let p = productsDB.find(x => x.id === pId);
         let input = document.getElementById(`qty_${pId}`);
@@ -553,7 +636,6 @@
         }
     }
 
-    // Naya WhatsApp Format aur Bandha Calculation
     function generateWhatsApp() {
         if(Object.keys(cart).length === 0) return;
         
@@ -563,7 +645,6 @@
             let item = cart[key];
             let p = item.p;
             
-            // Bandha Logic
             let qtyText = `${item.qty} pcs`;
             if (p.bandha && item.qty >= p.bandha) {
                 let bandhaCount = Math.floor(item.qty / p.bandha);
@@ -575,7 +656,7 @@
                 }
             }
 
-            msg += `${p.name}\nMRP: ${p.mrp}\nRate: ${item.actualRate}\nQuantity: ${qtyText}\n\n`;
+            msg += `Item: ${p.name}\nMrp: ${p.mrp}\nRate: ${item.actualRate}\nQuantity: ${qtyText}\n\n`;
         }
         
         let encodedMsg = encodeURIComponent(msg);
@@ -600,8 +681,5 @@
         }
     }
 </script>
-</body>
-</html>
-
 </body>
 </html>
