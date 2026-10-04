@@ -25,13 +25,14 @@
         .view { display: none; padding: 10px; padding-bottom: 80px; }
         .view.active { display: block; }
         
-        .list-item { background: var(--card-bg); padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .list-item { background: var(--card-bg); padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .list-item-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
         .list-item-sub { font-size: 13px; color: var(--text-muted); }
         
+        .shop-header-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--wa-dark); }
         .shop-actions { display: flex; gap: 10px; }
-        .btn-icon { background: var(--bg-color); border: none; padding: 10px; border-radius: 50%; color: var(--wa-dark); font-size: 16px; }
-        .btn-icon.active-gps { color: var(--wa-green); }
+        .btn-icon { background: var(--bg-color); border: none; padding: 10px; border-radius: 50%; color: var(--wa-dark); font-size: 16px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+        .btn-icon.active-gps { color: var(--wa-green); background: #e8f5e9; }
 
         .product-card { background: var(--card-bg); padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
         .product-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
@@ -42,12 +43,19 @@
         .qty-btn { background: white; border: none; width: 35px; height: 35px; border-radius: 50%; font-size: 18px; font-weight: bold; color: var(--wa-dark); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
         .qty-input { width: 50px; border: none; background: transparent; text-align: center; font-size: 16px; font-weight: bold; outline: none; }
         
-        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; z-index: 100; display: none; }
+        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; z-index: 100; display: none; transition: 0.3s; }
         .total-amount { font-size: 18px; font-weight: bold; color: var(--text-main); }
-        .btn-primary { background-color: var(--wa-green); color: white; border: none; padding: 12px 24px; border-radius: 24px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .btn-primary { background-color: var(--wa-green); color: white; border: none; padding: 12px 24px; border-radius: 24px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
         
         .search-box { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; font-size: 15px; outline: none; }
         .search-box:focus { border-color: var(--wa-light); }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; display: none; align-items: center; justify-content: center; }
+        .modal-box { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; }
+        .modal-title { font-size: 18px; margin-bottom: 15px; font-weight: bold; color: var(--text-main); }
+        .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-outline { background: transparent; border: 1px solid #ddd; color: var(--text-main); padding: 12px; border-radius: 8px; flex: 1; cursor: pointer; font-weight: bold; }
+        .btn-save { background: var(--wa-green); border: none; color: white; padding: 12px; border-radius: 8px; flex: 1; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -58,20 +66,24 @@
     </header>
 
     <div id="routesView" class="view active">
-        <div class="list-item" onclick="openRoute('Monday - Akota')"><div class="list-item-title">Monday - Akota</div><i class="fas fa-chevron-right text-muted"></i></div>
-        <div class="list-item" onclick="openRoute('Tuesday - Sama')"><div class="list-item-title">Tuesday - Sama</div><i class="fas fa-chevron-right text-muted"></i></div>
-        <div class="list-item" onclick="openRoute('Wednesday - Nawayard')"><div class="list-item-title">Wednesday</div><i class="fas fa-chevron-right text-muted"></i></div>
-        <div class="list-item" onclick="openRoute('Thursday - Laxmipura')"><div class="list-item-title">Thursday - Laxmipura</div><i class="fas fa-chevron-right text-muted"></i></div>
-        <div class="list-item" onclick="openRoute('Friday - Diwalipura')"><div class="list-item-title">Friday - Diwalipura</div><i class="fas fa-chevron-right text-muted"></i></div>
-        <div class="list-item" onclick="openRoute('Saturday - Kalali')"><div class="list-item-title">Saturday - Kalali</div><i class="fas fa-chevron-right text-muted"></i></div>
+        <div class="list-item" onclick="openRoute('Monday - Akota')"><div class="list-item-title">Monday - Akota</div></div>
+        <div class="list-item" onclick="openRoute('Tuesday - Sama')"><div class="list-item-title">Tuesday - Sama</div></div>
+        <div class="list-item" onclick="openRoute('Wednesday')"><div class="list-item-title">Wednesday</div></div>
+        <div class="list-item" onclick="openRoute('Thursday - Laxmipura')"><div class="list-item-title">Thursday - Laxmipura</div></div>
+        <div class="list-item" onclick="openRoute('Friday - Diwalipura')"><div class="list-item-title">Friday - Diwalipura</div></div>
+        <div class="list-item" onclick="openRoute('Saturday - Kalali')"><div class="list-item-title">Saturday - Kalali</div></div>
     </div>
 
     <div id="shopsView" class="view">
         <input type="text" class="search-box" id="shopSearch" placeholder="Search Shop..." onkeyup="filterShops()">
+        <button class="btn-primary" style="width: 100%; border-radius: 8px; margin-bottom: 15px;" onclick="openAddShopModal()">
+            <i class="fas fa-plus"></i> Add New Shop
+        </button>
         <div id="shopsList"></div>
     </div>
 
     <div id="productsView" class="view">
+        <div id="shopHeaderContainer"></div>
         <input type="text" class="search-box" id="productSearch" placeholder="Search Products..." onkeyup="filterProducts()">
         <div id="productsList"></div>
     </div>
@@ -86,12 +98,26 @@
         </button>
     </div>
 
+    <div id="addShopModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">Nayi Dukan Add Karein</div>
+            <input type="text" id="newShopName" class="search-box" placeholder="Dukan ka naam likhein..." style="margin-bottom: 10px;">
+            <label style="font-size: 13px; color: var(--text-muted); margin-bottom: 5px; display: block;">Kis dukan ke baad add karni hai?</label>
+            <select id="insertAfterShop" class="search-box" style="margin-bottom: 0;">
+            </select>
+            <div class="modal-actions">
+                <button class="btn-outline" onclick="closeAddShopModal()">Cancel</button>
+                <button class="btn-save" onclick="saveNewShop()">Save Shop</button>
+            </div>
+        </div>
+    </div>
+
 <script>
     let currentRoute = "";
     let currentShop = "";
+    let currentShopId = "";
     let cart = {}; 
 
-    // Complete Shops Database
     let defaultShops = {
         "Monday - Akota": [
             "Shri Jalaram Store", "Jyoti Store", "Gayatri Store", "Guruprem Super Store", "One Stop General Store",
@@ -113,7 +139,7 @@
             "Jalaram Provision Store", "Ya Chistiya Provision Store", "Mehboob Provision Store", 
             "Kabirkha Provision Store", "Imran Provision Store", "Pathan Provision Store Opp Imran", 
             "Shri Nathji Provision Store", "Shri Ganesh Provision Store", "New Onest Provision Store", 
-            "Asrafi Provision Store", "AVAILABLE FOR FUTURE SHOP", "Jay Ambe Provision Store", "Vijay Provision Store", 
+            "Asrafi Provision Store", "Jay Ambe Provision Store", "Vijay Provision Store", 
             "Jay Mahakali Baroda Dairy Kendra", "Shourya Provision Store", "Navpad Provision Store", 
             "Natraj Provision Store", "Insha Provision Store", "MK Super Mart"
         ].map((n, i) => ({ id: `w_${i+1}`, name: n })),
@@ -157,12 +183,14 @@
         ].map((n, i) => ({ id: `s_${i+1}`, name: n }))
     };
 
-    // Load from local storage or set default
     let shopsDB = JSON.parse(localStorage.getItem('shopsDB')) || defaultShops;
 
-    // Complete Products Database
+    for(let route in shopsDB) {
+        shopsDB[route] = shopsDB[route].filter(shop => shop.name !== "AVAILABLE FOR FUTURE SHOP");
+    }
+    localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
+
     const productsDB = [
-        // Masalas
         { id: 1, name: "Hakka Noodles Masala", mrp: 10, rate: 8, bandha: 20 },
         { id: 2, name: "Paneer Chili Masala", mrp: 10, rate: 8, bandha: 20 },
         { id: 3, name: "Veg Manchurian Masala", mrp: 10, rate: 8, bandha: 20 },
@@ -171,8 +199,6 @@
         { id: 6, name: "Smith & Jones Peri Peri Masala", mrp: 5, rate: 4, scheme: "Min 48 pcs" },
         { id: 7, name: "Smith & Jones Pasta Masala", mrp: 5, rate: 4.10, slabs: [{ min: 48, rate: 4.00 }], scheme: "Min 24 pcs" },
         { id: 8, name: "Ching's Schezwan Fried Rice Masala (5 Pouch)", mrp: 50, rate: 42 },
-        
-        // Sauces
         { id: 9, name: "Schezwan Chutney Pouch", mrp: 10, rate: 8, scheme: "Min 30 pcs" },
         { id: 10, name: "Schezwan Chutney Pouch", mrp: 45, rate: 33 },
         { id: 11, name: "Schezwan Chutney Glass", mrp: 84, rate: 72 },
@@ -187,8 +213,6 @@
         { id: 20, name: "Green Chilli Sauce Plastic", mrp: 84, rate: 45 },
         { id: 21, name: "Dark Soy Sauce Plastic", mrp: 84, rate: 45 },
         { id: 22, name: "Smith & Jones Tomato Ketchup 90g", mrp: 15, rate: 12 },
-        
-        // Ginger Garlic & Noodles
         { id: 23, name: "Ginger Garlic Paste (Small)", mrp: 5, rate: 3.50, scheme: "Min 48 pcs" },
         { id: 24, name: "Ginger Garlic Paste (Big)", mrp: 47, rate: 33, slabs: [{ min: 24, rate: 23.50 }] },
         { id: 25, name: "Hakka Noodles (Without Masala)", mrp: 30, rate: 24 },
@@ -198,8 +222,6 @@
         { id: 29, name: "Ching's Manchurian Noodles 64g", mrp: 20, rate: 14 },
         { id: 30, name: "Ching's Schezwan Noodles 64g", mrp: 20, rate: 14 },
         { id: 31, name: "Ching's Singapore Curry Noodles 64g", mrp: 20, rate: 14 },
-        
-        // Instant Soups
         { id: 32, name: "Instant Soup - Mix Veg", mrp: 10, rate: 8, bandha: 20 },
         { id: 33, name: "Instant Soup - Sweet Corn Veg", mrp: 10, rate: 8, bandha: 20 },
         { id: 34, name: "Instant Soup - Hot & Sour", mrp: 10, rate: 8, bandha: 20 },
@@ -207,13 +229,11 @@
         { id: 36, name: "Instant Soup - Tomato", mrp: 10, rate: 8, bandha: 20 },
         { id: 37, name: "Instant Soup - Asian Hot", mrp: 10, rate: 8, bandha: 20 },
         { id: 38, name: "Instant Soup - Lemon Coriander", mrp: 10, rate: 8, bandha: 20 },
-        
-        // Tata Sampann & Snacks
         { id: 39, name: "Tata Sampann Fine Besan 500g", mrp: 75, rate: 40 },
         { id: 40, name: "Tata Sampann Poha 500g", mrp: 57, rate: 33 },
         { id: 41, name: "Tata Soulfull No Maida Rusk Toast", mrp: 40, rate: 30 },
-        { id: 42, name: "Tata Sampann Chilli Powder (Buy 12 Get 12)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 4 }], scheme: "Regular rate 8. Takes 4rs per piece if qty 12+" },
-        { id: 43, name: "Tata Sampann Turmeric Powder (Buy 12 Get 12)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 4 }], scheme: "Regular rate 8. Takes 4rs per piece if qty 12+" },
+        { id: 42, name: "Tata Sampann Chilli Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 4 }], scheme: "12+ qty pe 4rs/pc" },
+        { id: 43, name: "Tata Sampann Turmeric Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 4 }], scheme: "12+ qty pe 4rs/pc" },
         { id: 44, name: "Sweet Chilli Cashew", mrp: 59, rate: 41 },
         { id: 45, name: "Pudina Cashew", mrp: 59, rate: 41 },
         { id: 46, name: "Salted Roasted Almond", mrp: 59, rate: 41 },
@@ -222,8 +242,6 @@
         { id: 49, name: "Himalayan Salt & Pepper Makhana", mrp: 155, rate: 108.5 },
         { id: 50, name: "Fiery Peri Peri Makhana", mrp: 155, rate: 108.5 },
         { id: 51, name: "Punchy Pudina Makhana", mrp: 155, rate: 108.5 },
-
-        // Organic India - Foods, Oils
         { id: 52, name: "Chyawanprash (500g)", mrp: 495, rate: 495 },
         { id: 53, name: "Apple Cider Vinegar (500ml)", mrp: 495, rate: 495 },
         { id: 54, name: "Quinoa (500g)", mrp: 295, rate: 295 },
@@ -233,8 +251,6 @@
         { id: 58, name: "Sunflower Oil (1L)", mrp: 295, rate: 295 },
         { id: 59, name: "Groundnut Oil (1L)", mrp: 395, rate: 395 },
         { id: 60, name: "Mustard Oil (1L)", mrp: 295, rate: 295 },
-
-        // Organic India - Supplements
         { id: 61, name: "Cinnamon Capsule", mrp: 250, rate: 250 },
         { id: 62, name: "Moringa Capsule", mrp: 250, rate: 250 },
         { id: 63, name: "Arjuna Capsule", mrp: 225, rate: 225 },
@@ -263,8 +279,6 @@
         { id: 86, name: "Flexibility Capsule", mrp: 250, rate: 250 },
         { id: 87, name: "Osteoseal Capsule", mrp: 250, rate: 250 },
         { id: 88, name: "Weight Balance Capsule", mrp: 295, rate: 295 },
-
-        // Organic India - Powders & Sweets
         { id: 89, name: "Wheat Grass Powder", mrp: 350, rate: 350 },
         { id: 90, name: "Moringa Powder", mrp: 250, rate: 250 },
         { id: 91, name: "Sat Isabgol Whole Husk", mrp: 225, rate: 225 },
@@ -273,8 +287,6 @@
         { id: 94, name: "Multifloral Honey", mrp: 250, rate: 250 },
         { id: 95, name: "Desi Khandsari Sugar", mrp: 130, rate: 130 },
         { id: 96, name: "Stevia", mrp: 295, rate: 295 },
-
-        // Organic India - Teas
         { id: 97, name: "Tulsi Masala Chai", mrp: 180, rate: 180 },
         { id: 98, name: "Tulsi Original", mrp: 174, rate: 174 },
         { id: 99, name: "Tulsi Ginger", mrp: 174, rate: 174 },
@@ -304,10 +316,10 @@
         document.getElementById('headerTitle').innerText = title;
         document.getElementById('backBtn').style.display = showBack ? 'block' : 'none';
         
-        if (viewId === 'productsView') {
-            document.getElementById('bottomBar').style.display = 'flex';
-        } else {
+        if(viewId !== 'productsView') {
             document.getElementById('bottomBar').style.display = 'none';
+        } else {
+            updateCartTotal(); 
         }
     }
 
@@ -321,38 +333,93 @@
     function openRoute(routeName) {
         currentRoute = routeName;
         history.push('shopsView');
-        renderShops();
+        renderShopsList();
         showView('shopsView', routeName, true);
+    }
+
+    function renderShopsList() {
+        let list = shopsDB[currentRoute] || [];
+        let html = '';
+        list.forEach((shop, index) => {
+            html += `
+                <div class="list-item shop-item" onclick="openShop('${shop.id}', '${shop.name}')">
+                    <div style="flex-grow:1;">
+                        <div class="list-item-title">${index + 1}. ${shop.name}</div>
+                        <div class="list-item-sub">Tap to select shop & add products</div>
+                    </div>
+                    <i class="fas fa-chevron-right text-muted"></i>
+                </div>
+            `;
+        });
+        document.getElementById('shopsList').innerHTML = html;
+    }
+    
+    function openAddShopModal() {
+        document.getElementById('newShopName').value = '';
+        
+        let select = document.getElementById('insertAfterShop');
+        let html = '<option value="-1">--- Sabse Upar (Top) ---</option>';
+        
+        let list = shopsDB[currentRoute] || [];
+        list.forEach((shop, index) => {
+            let selected = (index === list.length - 1) ? 'selected' : '';
+            html += `<option value="${index}" ${selected}>Iske baad: ${shop.name}</option>`;
+        });
+        
+        select.innerHTML = html;
+        document.getElementById('addShopModal').style.display = 'flex';
+    }
+
+    function closeAddShopModal() {
+        document.getElementById('addShopModal').style.display = 'none';
+    }
+
+    function saveNewShop() {
+        let name = document.getElementById('newShopName').value.trim();
+        if(!name) { alert("Dukan ka naam likhna zaroori hai!"); return; }
+
+        let index = parseInt(document.getElementById('insertAfterShop').value);
+        let newShop = { id: 'new_' + Date.now(), name: name };
+
+        if(index === -1) {
+            shopsDB[currentRoute].unshift(newShop);
+        } else {
+            shopsDB[currentRoute].splice(index + 1, 0, newShop);
+        }
+
+        localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
+        closeAddShopModal();
+        renderShopsList();
     }
 
     function openShop(shopId, shopName) {
         currentShop = shopName;
+        currentShopId = shopId;
         cart = {}; 
-        updateCartTotal();
         history.push('productsView');
+        
+        renderShopHeader();
         renderProducts();
-        showView('productsView', shopName, true);
+        showView('productsView', 'Order', true);
     }
 
-    function renderShops() {
-        let list = shopsDB[currentRoute] || [];
-        let html = '';
-        list.forEach((shop, index) => {
-            let locIconClass = (shop.gpsSaved || shop.url) ? 'active-gps' : '';
-            html += `
-                <div class="list-item shop-item">
-                    <div style="flex-grow:1;" onclick="openShop('${shop.id}', '${shop.name}')">
-                        <div class="list-item-title">${index + 1}. ${shop.name}</div>
-                        <div class="list-item-sub">ID: ${shop.id}</div>
-                    </div>
-                    <div class="shop-actions">
-                        <button class="btn-icon ${locIconClass}" onclick="saveGPS('${currentRoute}', '${shop.id}')"><i class="fas fa-map-marker-alt"></i></button>
-                        <button class="btn-icon" onclick="navigateShop('${currentRoute}', '${shop.id}')"><i class="fas fa-location-arrow"></i></button>
-                    </div>
+    function renderShopHeader() {
+        let shop = shopsDB[currentRoute].find(s => s.id === currentShopId);
+        let locIconClass = (shop.gpsSaved || shop.url) ? 'active-gps' : '';
+        
+        let html = `
+            <div class="shop-header-card">
+                <div>
+                    <div class="list-item-title">${shop.name}</div>
+                    <div class="list-item-sub">${currentRoute}</div>
                 </div>
-`;
-        });
-        document.getElementById('shopsList').innerHTML = html;
+                <div class="shop-actions">
+                    <button class="btn-icon ${locIconClass}" onclick="saveGPS('${currentRoute}', '${shop.id}')"><i class="fas fa-map-marker-alt"></i></button>
+                    <button class="btn-icon" onclick="navigateShop('${currentRoute}', '${shop.id}')"><i class="fas fa-location-arrow"></i></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('shopHeaderContainer').innerHTML = html;
     }
 
     function saveGPS(route, shopId) {
@@ -364,7 +431,7 @@
                 shop.gpsSaved = true;
                 localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
                 alert(shop.name + " ki location save ho gayi!");
-                renderShops();
+                renderShopHeader(); 
             }, function(error) {
                 alert("GPS error. Location on kijiye aur permission dijiye.");
             });
@@ -469,29 +536,26 @@
             totalAmt += (cart[key].actualRate * cart[key].qty);
             totalItems++;
         }
+        
         document.getElementById('totalVal').innerText = totalAmt.toFixed(2);
         document.getElementById('totalItems').innerText = totalItems;
+        
+        if(totalItems > 0) {
+            document.getElementById('bottomBar').style.display = 'flex';
+        } else {
+            document.getElementById('bottomBar').style.display = 'none';
+        }
     }
 
     function generateWhatsApp() {
-        if(Object.keys(cart).length === 0) {
-            alert("No items selected!");
-            return;
-        }
-
-        let total = document.getElementById('totalVal').innerText;
-        let itemsCount = document.getElementById('totalItems').innerText;
+        if(Object.keys(cart).length === 0) return;
         
-        let msg = `*Shop Name:* ${currentShop}\n*Route:* ${currentRoute}\n\n*Items:*\n\n`;
+        let msg = `${currentShop}\n${currentRoute}\n\n`;
         
-        let counter = 1;
         for (let key in cart) {
             let item = cart[key];
-            msg += `${counter}. ${item.p.name}\nMRP ₹${item.p.mrp} - Rate ₹${item.actualRate}\nQty: ${item.qty}\n\n`;
-            counter++;
+            msg += `${item.p.name} -${item.p.mrp}-${item.actualRate} - ${item.qty}\n`;
         }
- 
-        msg += `*Total Items:* ${itemsCount}\n*Total Amount:* ₹${total}`;
         
         let encodedMsg = encodeURIComponent(msg);
         window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
