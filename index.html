@@ -1,143 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#075e54">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Sales Order</title>
-<link rel="manifest" href="manifest.json">
-<style>
-:root{--p:#075e54;--p2:#128c7e;--g:#25d366;--bg:#f3f5f6;--card:#fff;--text:#172026;--muted:#68737a;--danger:#d9534f}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-body{padding-bottom:88px}.top{position:sticky;top:0;z-index:20;background:var(--p);color:#fff;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top));box-shadow:0 2px 8px #0002}
-.toprow{display:flex;align-items:center;justify-content:space-between}.title{font-size:20px;font-weight:800}.sub{font-size:12px;opacity:.85;margin-top:2px}
-.container{max-width:680px;margin:auto;padding:12px}.card{background:var(--card);border-radius:15px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px #0000000d}
-label{font-size:12px;font-weight:800;color:#455057;display:block;margin-bottom:6px}
-select,input{width:100%;border:1px solid #d8dee1;background:#fafbfb;border-radius:11px;padding:13px;font-size:16px;outline:0}select:focus,input:focus{border-color:var(--p)}
-.shoprow{display:flex;gap:8px}.shoprow select{flex:1}.reset{border:0;border-radius:11px;padding:0 14px;background:#eee;color:#333;font-weight:700}
-.search{position:relative}.search input{padding-left:40px}.search span{position:absolute;left:13px;top:12px}
-.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:5px 2px 9px}.sectionhead b{font-size:16px}.count{font-size:12px;color:var(--muted)}
-.product{background:#fff;border:1px solid #e4e8ea;border-radius:14px;padding:12px;margin-bottom:9px;display:flex;gap:9px;align-items:center}
-.product.selected{border-color:var(--g);background:#f4fff8}.info{min-width:0;flex:1}.name{font-weight:750;font-size:14px;line-height:1.25}.meta{font-size:11px;color:var(--muted);margin-top:4px}.warn{font-size:10px;color:var(--danger);font-weight:800;margin-top:3px}
-.qty{display:flex;align-items:center;gap:5px}.qbtn{width:36px;height:36px;border:0;border-radius:50%;background:#e8ebed;font-size:21px;font-weight:800}.qinput{width:48px;padding:7px 2px;text-align:center;font-weight:800}
-.bottom{position:fixed;bottom:0;left:0;right:0;z-index:30;background:#fff;box-shadow:0 -4px 15px #0002;padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom))}
-.bottomin{max-width:680px;margin:auto;display:flex;align-items:center;gap:10px}.total{flex:1;font-size:12px;color:#5d666b}.total strong{display:block;color:#111;font-size:20px}.wa{border:0;background:var(--g);color:#fff;border-radius:12px;padding:13px 16px;font-weight:850;font-size:14px}
-.hidden{display:none!important}.empty{text-align:center;color:var(--muted);padding:28px}.toast{position:fixed;left:50%;bottom:94px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;z-index:50;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1}
-@media(min-width:680px){.bottom{padding-bottom:10px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sales Order App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --wa-dark: #075E54;
+            --wa-light: #128C7E;
+            --wa-green: #25D366;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #111b21;
+            --text-muted: #667781;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); -webkit-tap-highlight-color: transparent; }
+        
+        /* Header */
+        header { background-color: var(--wa-dark); color: white; padding: 15px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .back-btn { background: none; border: none; color: white; font-size: 20px; margin-right: 15px; display: none; cursor: pointer; }
+        h1 { font-size: 18px; font-weight: 500; flex-grow: 1; }
+        
+        /* Views */
+        .view { display: none; padding: 10px; padding-bottom: 80px; }
+        .view.active { display: block; }
+        
+        /* Cards & Lists */
+        .list-item { background: var(--card-bg); padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .list-item-title { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+        .list-item-sub { font-size: 13px; color: var(--text-muted); }
+        
+        /* Shop Specific */
+        .shop-actions { display: flex; gap: 10px; }
+        .btn-icon { background: var(--bg-color); border: none; padding: 10px; border-radius: 50%; color: var(--wa-dark); font-size: 16px; }
+        .btn-icon.active-gps { color: var(--wa-green); }
+
+        /* Product Specific */
+        .product-card { background: var(--card-bg); padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .product-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .product-price { color: var(--wa-dark); font-weight: bold; }
+        .product-scheme { font-size: 12px; color: #d32f2f; background: #ffebee; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+        
+        /* Quantity Controls */
+        .qty-controls { display: flex; align-items: center; justify-content: space-between; background: var(--bg-color); border-radius: 25px; padding: 5px; width: 140px; }
+        .qty-btn { background: white; border: none; width: 35px; height: 35px; border-radius: 50%; font-size: 18px; font-weight: bold; color: var(--wa-dark); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .qty-input { width: 50px; border: none; background: transparent; text-align: center; font-size: 16px; font-weight: bold; outline: none; }
+        
+        /* Floating Action/Total Bar */
+        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; z-index: 100; display: none; }
+        .total-amount { font-size: 18px; font-weight: bold; color: var(--text-main); }
+        .btn-primary { background-color: var(--wa-green); color: white; border: none; padding: 12px 24px; border-radius: 24px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        
+        /* Search */
+        .search-box { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; font-size: 15px; outline: none; }
+        .search-box:focus { border-color: var(--wa-light); }
+    </style>
 </head>
 <body>
-<header class="top"><div class="toprow"><div><div class="title">📦 Faizan Sales Order</div><div class="sub">Mobile Order entry</div></div><button id="clearBtn" style="border:0;background:#ffffff22;color:white;border-radius:9px;padding:8px 10px;font-weight:700">Clear</button></div></header>
 
-<main class="container">
-<section class="card">
-<label>📅 DAY & ROUTE</label>
-<select id="route"><option value="">-- Choose Day & Route --</option></select>
-<div style="height:12px"></div>
-<label>🏪 SHOP</label>
-<div class="shoprow"><select id="shop"><option value="">-- Select shop --</option></select></div>
-</section>
+    <header>
+        <button class="back-btn" id="backBtn" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+        <h1 id="headerTitle">Sales Routes</h1>
+    </header>
 
-<section id="productsSection" class="hidden">
-<div class="card search"><span>🔍</span><input id="search" placeholder="Search product..." autocomplete="off"></div>
-<div class="sectionhead"><b>Products</b><span class="count" id="count"></span></div>
-<div id="list"></div>
-</section>
-</main>
+    <!-- ROUTES VIEW -->
+    <div id="routesView" class="view active">
+        <div class="list-item" onclick="openRoute('Monday - Akota')"><div class="list-item-title">Monday - Akota</div><i class="fas fa-chevron-right text-muted"></i></div>
+        <div class="list-item" onclick="openRoute('Tuesday - Sama')"><div class="list-item-title">Tuesday - Sama</div><i class="fas fa-chevron-right text-muted"></i></div>
+        <div class="list-item" onclick="openRoute('Wednesday')"><div class="list-item-title">Wednesday</div><i class="fas fa-chevron-right text-muted"></i></div>
+        <div class="list-item" onclick="openRoute('Thursday - Laxmipura')"><div class="list-item-title">Thursday - Laxmipura</div><i class="fas fa-chevron-right text-muted"></i></div>
+        <div class="list-item" onclick="openRoute('Friday - Diwalipura')"><div class="list-item-title">Friday - Diwalipura</div><i class="fas fa-chevron-right text-muted"></i></div>
+        <div class="list-item" onclick="openRoute('Saturday - Kalali')"><div class="list-item-title">Saturday - Kalali</div><i class="fas fa-chevron-right text-muted"></i></div>
+    </div>
 
-<div id="toast" class="toast"></div>
-<footer id="bottom" class="bottom hidden"><div class="bottomin"><div class="total"><span id="itemCount">0 items</span><strong id="total">₹0.00</strong></div><button class="wa" id="send">📲 Send Order</button></div></footer>
+    <!-- SHOPS VIEW -->
+    <div id="shopsView" class="view">
+        <input type="text" class="search-box" id="shopSearch" placeholder="Search Shop..." onkeyup="filterShops()">
+        <div id="shopsList"></div>
+    </div>
+
+    <!-- PRODUCTS/ORDER VIEW -->
+    <div id="productsView" class="view">
+        <input type="text" class="search-box" id="productSearch" placeholder="Search Products..." onkeyup="filterProducts()">
+        <div id="productsList"></div>
+    </div>
+
+    <!-- BOTTOM BAR (For Order View) -->
+    <div id="bottomBar" class="bottom-bar">
+        <div>
+            <div class="total-amount">₹<span id="totalVal">0.00</span></div>
+            <div class="list-item-sub"><span id="totalItems">0</span> Items</div>
+        </div>
+        <button class="btn-primary" onclick="generateWhatsApp()">
+            <i class="fab fa-whatsapp" style="font-size: 20px;"></i> Send Order
+        </button>
+    </div>
 
 <script>
-const routes={
-"Monday - Akota":["Shri Jalaram Store","Jyoti Store","Gayatri Store","Guruprem Super Store","One Stop General Store","Shri Sitaram Krupa Pro Store","Shital Provision Store","Yadav Provision Store","Arihant Provision Store","Welcome Enterprise","Shri Ambica Store","Laxmi Provision Store","Jalaram Provision Store","Shreeji Stationary & Gift Shop","New Uttam Provision Store"],
-"Tuesday - Sama":["Mahaveer General Store","Shri Jay Umiya Traders","Maa Sweets & Farshan","Dwarkash Pan","Vishwakarma Pan Corner","Suleshwari Provision Store","Jay Jalaram Provision Store","Radha Krishna Provision Store","Anita Kirana Store","Laxmi Narayan Provision Store (Opp. Anita)","Banna House","Shri Badhrikedar Provision","Yadav Provision Store","Kushi Provision Store","Ma Genral Store","Jay Ambe Provision Store","Mapels","Laxmi Provision Store"],
-"Wednesday - Nawayard":["Bajrang Provision Store","Balaji Medical & Provision Store","Sunita Provision Store","Jalaram Provision Store","Ya Chistiya Provision Store","Mehboob Provision Store","Kabirkha Provision Store","Imran Provision Store","Pathan Provision Store (Opp. Imran)","Shri Nathji Provision Store","Shri Ganesh Provision Store","New Onest Provision Store","Asrafi Provision Store","Jay Ambe Provision Store","Vijay Provision Store","Jay Mahakali Baroda Dairy Kendra","Shourya Provision Store","Navpad Provision Store","Natraj Provision Store","Chitiya Provision Store","Insha Provision Store","MK Super Mart"],
-"Thursday - Laxmipura":["Darwarkesh Milk Center","Himani Provision Store","Tejas General Store","Rajesh Provision Store","Jay Ambe Meldi Store","Kamlesh Super Store","Ambika Provision Store","Shakti Pan","Mahakali Pan Corner","Dwarkadhish Pan","Vishvaswar Provision Store","Shri Baal Krishna Provision Store","Shri Icecream & Cold Drinks","Baba Ramdev Provision Store","Shrinathji Dairy","Purvi General Store","Shri Ram Meldi & Provision Store","Jay Kayla Devi Provision Store"],
-"Friday - Diwalipura":["Gurukrupa Pan","Shriji Enterprises","Shivam Traders","Gokul Traders","Matangi Provision Store","Hari Om Stores & Telecom","Bhavani Pro Store","Mahek Provision Store","Jay Ambe Super Store","Jay Durga Provision Store","Narayan Provision Store","Shriram Super Store","Shri Mahavir Super Store","Ambica Provision Store & Icecream","Kanha's Scoops & More","Bharat Provision Store","Shri Ram Provision Store","Sidhnath Pro & Farsan Store","Bansidal Dairy","Jay Shree Bhagwati Provision Store","Shri Ram Dairy Shop","Jay Ambe Provision Store","Shri Ganesh Provision Store","Radhe Pan Corner","Shri Keyladevi Provision Store","Shree Jai Jalaram Store"],
-"Saturday - Kalali":["Shreeji Pan","Baroda Dairy Parlar","Prasann Soda Shop","Jay Shree Bhairuji Kirana Store","Mahiya Mart","Bindu Provision Store","Shakti Kirana Store","Krishna Super Store","Sukun Provision Store","Khushi Pro Store","Mahadev Mini Mart","Balaji Super Market","Chanakya Provision Store","Devnarayan Provision Store","Saibaba Provision Store","Jay Mataji Pan & Colddrink","Maa Bhavani Super Market","Harsiddhi Provision Store","Balaji Mart (GJ-5883448)","Apna Adda Provision Store","Bajrang Pan","Parindra Enterprise","Balaji Super Store-2","MS Super Store","Ganesh Provision Store","Al Makkah Pan","Pick & Eat"]
-};
-const products=[
-["Hakka Noodles (Masala)",10,8,"bandha",20,1],["Paneer Chili (Masala)",10,8,"bandha",20,1],["Veg Manchurian (Masala)",10,8,"bandha",20,1],["Schezwan Fried Rice (Masala)",10,8,"bandha",20,1],["Plain Fried Rice (Masala)",10,8,"bandha",20,1],
-["Smith & Jones Peri Peri Masala",5,4,"pcs",1,48],["Smith & Jones Pasta Masala",5,4.10,"pcs",1,24],
-["Schezwan Chutney (MRP 10 Pouch)",10,8,"special30",60,30],["Schezwan Chutney (MRP 45 Pouch)",45,33,"pcs",1,0],["Schezwan Chutney (MRP 84 Glass Bottle)",84,72,"pcs",1,0],
-["Red Chilli Sauce Pouch",25,21,"pcs",1,0],["Green Chilli Sauce Pouch",25,21,"pcs",1,0],["Dark Soy Sauce Pouch",25,21,"pcs",1,0],
-["Red Chilli Sauce Glass Bottle",56,45,"pcs",1,0],["Green Chilli Sauce Glass Bottle",56,45,"pcs",1,0],["Dark Soy Sauce Glass Bottle",56,45,"pcs",1,0],["Chilli Vinegar Glass Bottle",56,45,"pcs",1,0],
-["Red Chilli Sauce Plastic Bottle",84,45,"pcs",1,0],["Green Chilli Sauce Plastic Bottle",84,45,"pcs",1,0],["Dark Soy Sauce Plastic Bottle",84,45,"pcs",1,0],
-["Smith & Jones Ginger Garlic Paste (Small Pouch)",5,3.5,"pcs",1,48],["Smith & Jones Ginger Garlic Paste (Big Pouch)",47,33,"pcs",1,0],
-["Hakka Noodles (Without Masala)",30,24,"pcs",1,0],["Hakka Noodles (With Masala Inside)",35,28,"pcs",1,0],
-["Instant Soup - Mix Veg",10,8,"bandha",20,1],["Instant Soup - Sweet Corn Veg",10,8,"bandha",20,1],["Instant Soup - Hot & Sour",10,8,"bandha",20,1],["Instant Soup - Manchow",10,8,"bandha",20,1],["Instant Soup - Tomato",10,8,"bandha",20,1],
-["Tata Sampann Fine Besan 500g",75,40,"pcs",1,0],["Tata Sampann Poha 500g",57,33,"pcs",1,0],["Tata Soulfull No Maida Rusk Toast",40,20,"pcs",1,0]
-].map((x,i)=>({id:i,name:x[0],mrp:x[1],rate:x[2],unit:x[3],pack:x[4],min:x[5]}));
+    // Database Structure Example (Expand this with your full lists)
+    let currentRoute = "";
+    let currentShop = "";
+    let cart = {}; 
 
-let qty=JSON.parse(localStorage.getItem("salesQty")||"{}");
-const $=id=>document.getElementById(id);
-function save(){localStorage.setItem("salesQty",JSON.stringify(qty))}
-function pieces(p,v){return p.unit==="bandha"?v*p.pack:v}
-function rate(p,n){if(p.name.includes("Pasta Masala"))return n>=48?4:4.1;if(p.name.includes("Ginger Garlic Paste (Big Pouch)"))return n>=24?23.5:33;return p.rate}
-function calc(){let total=0,n=0;products.forEach((p,i)=>{let v=+qty[i]||0;if(v){n++;total+=pieces(p,v)*rate(p,pieces(p,v))}});$("total").textContent="₹"+total.toFixed(2);$("itemCount").textContent=n+" product"+(n===1?"":"s");$("bottom").classList.toggle("hidden",!n);return total}
-function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}
-function render(){
- const q=$("search").value.trim().toLowerCase(), list=$("list");list.innerHTML="";
- let shown=0;
- products.forEach((p,i)=>{
-  if(q&&!p.name.toLowerCase().includes(q))return; shown++;
-  const v=+qty[i]||0, r=rate(p,pieces(p,v));
-  let note="";
-  if(p.unit==="special30")note="⚠️ Minimum 30 pcs";
-  else if(p.unit==="bandha")note=`⚠️ Min ${p.min} bandha (${p.min*p.pack} pcs)`;
-  else if(p.min)note=`⚠️ Minimum ${p.min} pcs`;
-  let rateText=p.unit==="bandha"?`₹${p.rate}/pc`:p.name.includes("Pasta Masala")?"₹4.10 (<48) / ₹4.00 (≥48)":p.name.includes("Ginger Garlic Paste (Big Pouch)")?"₹33 (<24) / ₹23.50 (≥24)":`₹${p.rate}`;
-  const el=document.createElement("div");el.className="product"+(v?" selected":"");
-  el.innerHTML=`<div class="info"><div class="name">${p.name}</div><div class="meta">MRP ₹${p.mrp} • Rate <b>${rateText}</b></div>${note?`<div class="warn">${note}</div>`:""}</div><div class="qty"><button class="qbtn minus">−</button><input class="qinput" type="number" min="0" inputmode="numeric" value="${v}"><button class="qbtn plus">+</button></div>`;
-  const input=el.querySelector(".qinput");
-  const set=n=>{n=Math.max(0,parseInt(n)||0);qty[i]=n;input.value=n;el.classList.toggle("selected",n>0);save();calc()};
-  el.querySelector(".minus").onclick=()=>set((+qty[i]||0)-1);
-  el.querySelector(".plus").onclick=()=>set((+qty[i]||0)+1);
-  input.oninput=e=>set(e.target.value);
-  list.appendChild(el);
- });
- $("count").textContent=shown+" products";
- if(!shown)list.innerHTML='<div class="empty">No product found</div>';
- calc();
-}
-function loadShops(){
- const r=$("route").value,s=$("shop");s.innerHTML='<option value="">-- Select shop --</option>';
- if(r&&routes[r])routes[r].forEach(x=>{let o=document.createElement("option");o.value=x;o.textContent=x;s.appendChild(o)});
- $("productsSection").classList.toggle("hidden",!r);$("search").value="";render();
-}
-function validate(){
- let has=false;
- for(let i=0;i<products.length;i++){let p=products[i],v=+qty[i]||0;if(!v)continue;has=true;let n=pieces(p,v);
-  if(p.unit==="special30"&&n<30){alert("Schezwan Chutney MRP 10 ke liye minimum 30 pcs chahiye.");return false}
-  if(p.unit==="bandha"&&v<p.min){alert(`${p.name}: minimum ${p.min} bandha (${p.min*p.pack} pcs) chahiye.`);return false}
-  if(p.unit==="pcs"&&p.min&&n<p.min){alert(`${p.name}: minimum ${p.min} pcs chahiye.`);return false}
- }
- if(!has){alert("Kam se kam ek product select karein.");return false}return true
-}
-function send(){
- if(!$("route").value){alert("Day / Route select karein.");return}
- if(!$("shop").value){alert("Shop select karein.");return}
- if(!validate())return;
- let text=`Shop name: ${$("shop").value}\nRoute: ${$("route").value}\n`;
- products.forEach((p,i)=>{
-  let v=+qty[i]||0;if(!v)return;
-  let n=pieces(p,v),r=rate(p,n);
-  let rateStr = r % 1 === 0 ? r : r.toFixed(2);
-  let qtyStr = p.unit === "bandha" ? `${v} Bandha (${n} pcs)` : `${n} pcs`;
-  text+=`\n${p.name}\nMRP: ₹${p.mrp}\nRate: ₹${rateStr}\nQuantity: ${qtyStr}\n`;
- });
- window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
-}
-Object.keys(routes).forEach(r=>{let o=document.createElement("option");o.value=r;o.textContent=r;$("route").appendChild(o)});
-$("route").onchange=loadShops;
-$("search").oninput=render;
-$("send").onclick=send;
-$("clearBtn").onclick=()=>{if(confirm("Current order clear karein?")){qty={};save();render();toast("Order cleared")}};
-if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
-render();
+    // Initial Shops (We'll load from localStorage if edited/GPS saved)
+    let shopsDB = JSON.parse(localStorage.getItem('shopsDB')) || {
+        "Friday - Diwalipura": [
+            { id: "f1", name: "Gurukrupa Pan", lat: "22.3034480", lng: "73.1553850", gpsSaved: true },
+            { id: "f2", name: "Shriji Enterprises", url: "https://maps.app.goo.gl/8yFHAor22jtrH3ZT8", gpsSaved: true },
+            { id: "f3", name: "Shivam Traders", url: "https://maps.app.goo.gl/qAv3CNh3ckGsX6jn6", gpsSaved: true },
+            { id: "f4", name: "Gokul Traders", url: "https://maps.app.goo.gl/vVikgQzhW1b9cmig8", gpsSaved: true },
+            { id: "f5", name: "Matangi Provision Store", url: "https://maps.app.goo.gl/EzaT4YBrHLextCBJ7", gpsSaved: true },
+            { id: "f6", name: "Hari Om Stores & Telecom", url: "https://maps.app.goo.gl/gpmaqhB3iRZRP1p67", gpsSaved: true },
+            { id: "f7", name: "Bhavani Pro Store", url: "https://maps.app.goo.gl/4ntAVnQPqWf5MhoCA?g_st=ac", gpsSaved: true },
+            { id: "f8", name: "Mahek Provision Store", url: "https://maps.app.goo.gl/4ntAVnQPqWf5MhoCA?g_st=ac", gpsSaved: true },
+            { id: "f9", name: "Jay Ambe Super Store", url: "https://maps.app.goo.gl/i459yd2CnZGUPwQo7", gpsSaved: true }
+            // Add remaining Friday shops and other days here in this format
+        ],
+        "Monday - Akota": [
+            { id: "m1", name: "Shri Jalaram Store" },
+            { id: "m2", name: "Jyoti Store" }
+            // ... add rest
+        ]
+    };
+
+    // Product Database Example (With schemes and bandhas)
+    const productsDB = [
+        { id: 1, name: "Hakka Noodles (With Masala Inside)", mrp: 35, rate: 28 },
+        { id: 2, name: "Instant Soup - Mix Veg", mrp: 10, rate: 8, bandha: 20 },
+        { id: 3, name: "Smith & Jones Pasta Masala", mrp: 5, rate: 4.10, slabs: [{ min: 48, rate: 4.00 }], minQty: 24 },
+        { id: 4, name: "Smith & Jones Ginger Garlic Paste (Big)", mrp: 47, rate: 33, slabs: [{ min: 24, rate: 23.50 }] },
+        { id: 5, name: "Tata Sampann Chilli Powder", mrp: 10, rate: 8, scheme: "Buy 12 Get 12", slabs: [{ min: 12, rate: 4 }] }, // Logic: Buy 12 get 12 effectively halves the rate to 4 for total qty
+        { id: 6, name: "Chyawanprash (500g) [Organic India]", mrp: 495, rate: 400 } // Demo rate
+        // Add all 50+ products here
+    ];
+
+    // Navigation Logic
+    const views = ['routesView', 'shopsView', 'productsView'];
+    let history = ['routesView'];
+
+    function showView(viewId, title, showBack) {
+        views.forEach(v => document.getElementById(v).classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
+        document.getElementById('headerTitle').innerText = title;
+        document.getElementById('backBtn').style.display = showBack ? 'block' : 'none';
+        
+        if (viewId === 'productsView') {
+            document.getElementById('bottomBar').style.display = 'flex';
+        } else {
+            document.getElementById('bottomBar').style.display = 'none';
+        }
+    }
+
+    function goBack() {
+        history.pop();
+        let prev = history[history.length - 1];
+        if (prev === 'routesView') showView(prev, 'Sales Routes', false);
+        else if (prev === 'shopsView') showView(prev, currentRoute, true);
+    }
+
+    function openRoute(routeName) {
+        currentRoute = routeName;
+        history.push('shopsView');
+        renderShops();
+        showView('shopsView', routeName, true);
+    }
+
+    function openShop(shopId, shopName) {
+        currentShop = shopName;
+        cart = {}; // Reset cart for new shop
+        updateCartTotal();
+        history.push('productsView');
+        renderProducts();
+        showView('productsView', shopName, true);
+    }
+
+    // Render Shops
+    function renderShops() {
+        let list = shopsDB[currentRoute] || [];
+        let html = '';
+        list.forEach((shop, index) => {
+            let locIconClass = shop.gpsSaved ? 'active-gps' : '';
+            html += `
+                <div class="list-item shop-item">
+                    <div style="flex-grow:1;" onclick="openShop('${shop.id}', '${shop.name}')">
+                        <div class="list-item-title">${index + 1}. ${shop.name}</div>
+                        <div class="list-item-sub">ID: ${shop.id}</div>
+                    </div>
+                    <div class="shop-actions">
+                        <button class="btn-icon ${locIconClass}" onclick="saveGPS('${currentRoute}', '${shop.id}')"><i class="fas fa-map-marker-alt"></i></button>
+                        <button class="btn-icon" onclick="navigateShop('${currentRoute}', '${shop.id}')"><i class="fas fa-location-arrow"></i></button>
+                    </div>
+                </div>
+            `;
+        });
+        document.getElementById('shopsList').innerHTML = html;
+    }
+
+    // Save GPS Live Location
+    function saveGPS(route, shopId) {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                let shop = shopsDB[route].find(s => s.id === shopId);
+                shop.lat = position.coords.latitude;
+                shop.lng = position.coords.longitude;
+                shop.gpsSaved = true;
+                localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
+                alert(shop.name + " ki location save ho gayi!");
+                renderShops();
+            }, function(error) {
+                alert("GPS error. Location on kijiye aur permission dijiye.");
+            });
+        } else {
+            alert("Aapka device GPS support nahi karta.");
+        }
+    }
+
+    function navigateShop(route, shopId) {
+        let shop = shopsDB[route].find(s => s.id === shopId);
+        if(shop.url) {
+            window.open(shop.url, '_blank');
+        } else if (shop.lat && shop.lng) {
+            window.open(`https://www.google.com/maps/search/?api=1&query=${shop.lat},${shop.lng}`, '_blank');
+        } else {
+            alert("Pehle 📍 button daba kar location save karein.");
+        }
+    }
+
+    // Render Products & Logic
+    function renderProducts() {
+        let html = '';
+        productsDB.forEach(p => {
+            let schemeText = p.bandha ? `Min 1 bandha (${p.bandha} pcs)` : "";
+            if(p.scheme) schemeText += p.scheme;
+            if(p.slabs) schemeText += ` (Qty base rate applied automatically)`;
+
+            let qty = cart[p.id]?.qty || 0;
+            let currentRateText = p.rate;
+            
+            html += `
+                <div class="product-card product-item">
+                    <div class="product-header">
+                        <div>
+                            <div class="list-item-title">${p.name}</div>
+                            ${schemeText ? `<div class="product-scheme">${schemeText}</div>` : ''}
+                            <div class="list-item-sub">MRP: ₹${p.mrp}</div>
+                        </div>
+                        <div class="product-price">Rate: ₹<span id="rate_${p.id}">${currentRateText}</span></div>
+                    </div>
+                    <div style="display:flex; justify-content: flex-end;">
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="updateQty(${p.id}, -1)">-</button>
+                            <input type="number" class="qty-input" id="qty_${p.id}" value="${qty}" onchange="manualQty(${p.id})">
+                            <button class="qty-btn" onclick="updateQty(${p.id}, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        document.getElementById('productsList').innerHTML = html;
+    }
+
+    function calculateApplicableRate(product, qty) {
+        let finalRate = product.rate;
+        if(product.slabs) {
+            let sortedSlabs = product.slabs.sort((a,b) => b.min - a.min); // Highest min first
+            for(let slab of sortedSlabs) {
+                if(qty >= slab.min) {
+                    finalRate = slab.rate;
+                    break;
+                }
+            }
+        }
+        return finalRate;
+    }
+
+    function updateQty(pId, change) {
+        let p = productsDB.find(x => x.id === pId);
+        let input = document.getElementById(`qty_${pId}`);
+        let current = parseInt(input.value) || 0;
+        
+        let step = p.bandha ? p.bandha : 1;
+        let newQty = current + (change * step);
+        if (newQty < 0) newQty = 0;
+        
+        input.value = newQty;
+        processCart(p, newQty);
+    }
+
+    function manualQty(pId) {
+        let p = productsDB.find(x => x.id === pId);
+        let input = document.getElementById(`qty_${pId}`);
+        let newQty = parseInt(input.value) || 0;
+        processCart(p, newQty);
+    }
+
+    function processCart(product, qty) {
+        let actualRate = calculateApplicableRate(product, qty);
+        document.getElementById(`rate_${product.id}`).innerText = actualRate;
+
+        if (qty > 0) {
+            cart[product.id] = { p: product, qty: qty, actualRate: actualRate };
+        } else {
+            delete cart[product.id];
+        }
+        updateCartTotal();
+    }
+
+    function updateCartTotal() {
+        let totalAmt = 0;
+        let totalItems = 0;
+        for (let key in cart) {
+            totalAmt += (cart[key].actualRate * cart[key].qty);
+            totalItems++;
+        }
+        document.getElementById('totalVal').innerText = totalAmt.toFixed(2);
+        document.getElementById('totalItems').innerText = totalItems;
+    }
+
+    // Generate WhatsApp Message
+    function generateWhatsApp() {
+        if(Object.keys(cart).length === 0) {
+            alert("No items selected!");
+            return;
+        }
+
+        let total = document.getElementById('totalVal').innerText;
+        let itemsCount = document.getElementById('totalItems').innerText;
+        
+        let msg = `*Shop Name:* ${currentShop}\n*Route:* ${currentRoute}\n\n*Items:*\n\n`;
+        
+        let counter = 1;
+        for (let key in cart) {
+            let item = cart[key];
+            msg += `${counter}. ${item.p.name}\nMRP ₹${item.p.mrp} - Rate ₹${item.actualRate}\nQty: ${item.qty}\n\n`;
+            counter++;
+        }
+        
+        msg += `*Total Items:* ${itemsCount}\n*Total Amount:* ₹${total}`;
+        
+        let encodedMsg = encodeURIComponent(msg);
+        window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
+    }
+
+    // Search filters
+    function filterShops() {
+        let input = document.getElementById('shopSearch').value.toLowerCase();
+        let items = document.getElementsByClassName('shop-item');
+        for (let i = 0; i < items.length; i++) {
+            let txtValue = items[i].textContent || items[i].innerText;
+            items[i].style.display = txtValue.toLowerCase().indexOf(input) > -1 ? "" : "none";
+        }
+    }
+
+    function filterProducts() {
+        let input = document.getElementById('productSearch').value.toLowerCase();
+        let items = document.getElementsByClassName('product-item');
+        for (let i = 0; i < items.length; i++) {
+            let txtValue = items[i].textContent || items[i].innerText;
+            items[i].style.display = txtValue.toLowerCase().indexOf(input) > -1 ? "" : "none";
+        }
+    }
 </script>
 </body>
 </html>
