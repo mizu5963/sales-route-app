@@ -195,202 +195,6 @@
             </div>
         </div>
     </div>
-<script>
-    let currentRoute = "";
-    let currentShop = "";
-    let currentShopId = "";
-    let cart = {}; 
-
-    let defaultShops = {
-        "Monday - Akota": [
-            "Shri Jalaram Store", "Jyoti Store", "Gayatri Store", "Guruprem Super Store", "One Stop General Store",
-            "Shri Sitaram Krupa Pro Store", "Shital Provision Store", "Yadav Provision Store", "Arihant Provision Store",
-            "Welcome Enterprise", "Shri Ambica Store", "Laxmi Provision Store", "Jalaram Provision Store", 
-            "Shreeji Stationary & Gift Shop", "New Uttam Provision Store"
-        ].map((n, i) => ({ id: `m_${i+1}`, name: n })),
-        
-        "Tuesday - Sama": [
-            "Mahaveer General Store", "Shri Jay Umiya Traders", "Maa Sweets & Farshan", "Dwarkash Pan", 
-            "Vishwakarma Pan Corner", "Suleshwari Provision Store", "Jay Jalaram Provision Store", 
-            "Radha Krishna Provision Store", "Anita Kirana Store", "Laxmi Narayan Provision Store Opp Anita", 
-            "Banna House", "Shri Badhrikedar Provision & GT", "Yadav Provision Store", "Kushi Provision Store", 
-            "Ma General Store", "Jay Ambe Provision Store", "Mapels", "Laxmi Provision Store"
-        ].map((n, i) => ({ id: `t_${i+1}`, name: n })),
-        
-        "Wednesday - Nawayard": [
-            "Bajrang Provision Store", "Balaji Medical & Provision Store", "Sunita Provision Store", 
-            "Jalaram Provision Store", "Ya Chistiya Provision Store", "Mehboob Provision Store", 
-            "Kabirkha Provision Store", "Imran Provision Store", "Pathan Provision Store Opp Imran", 
-            "Shri Nathji Provision Store", "Shri Ganesh Provision Store", "New Onest Provision Store", 
-            "Asrafi Provision Store", "Jay Ambe Provision Store", "Vijay Provision Store", 
-            "Jay Mahakali Baroda Dairy Kendra", "Shourya Provision Store", "Navpad Provision Store", 
-            "Natraj Provision Store", "Insha Provision Store", "MK Super Mart"
-        ].map((n, i) => ({ id: `w_${i+1}`, name: n })),
-        
-        "Thursday - Laxmipura": [
-            "Himani Provision Store", "Tejas General Store", "Rajesh Provision Store", "Jay Ambe Meldi Store", 
-            "Kamlesh Super Store", "Ambika Provision Store", "Shakti Pan", "Mahakali Pan Corner", "Dwarkadhish Pan", 
-            "Vishvaswar Provision Store", "Shri Baal Krishna Provision Store", "Shri Icecream & Cold Drinks", 
-            "Baba Ramdev Provision Store", "Shrinathji Dairy", "Purvi General Store", "Shri Ram Meldi & Provision Store", 
-            "Jay Kayla Devi Provision Store"
-        ].map((n, i) => ({ id: `th_${i+1}`, name: n })),
-        
-        "Friday - Diwalipura": [
-            { id: "f_1", name: "Gurukrupa Pan", url: "https://www.google.com/maps/search/?api=1&query=22.3034480,73.1553850", gpsSaved: true },
-            { id: "f_2", name: "Shriji Enterprises", url: "https://maps.app.goo.gl/8yFHAor22jtrH3ZT8", gpsSaved: true },
-            { id: "f_3", name: "Shivam Traders", url: "https://maps.app.goo.gl/qAv3CNh3ckGsX6jn6", gpsSaved: true },
-            { id: "f_4", name: "Gokul Traders", url: "https://maps.app.goo.gl/vVikgQzhW1b9cmig8", gpsSaved: true },
-            { id: "f_5", name: "Matangi Provision Store", url: "https://maps.app.goo.gl/EzaT4YBrHLextCBJ7", gpsSaved: true },
-            { id: "f_6", name: "Hari Om Stores & Telecom", url: "https://maps.app.goo.gl/gpmaqhB3iRZRP1p67", gpsSaved: true },
-            { id: "f_7", name: "Bhavani Pro Store", url: "https://maps.app.goo.gl/4ntAVnQPqWf5MhoCA?g_st=ac", gpsSaved: true },
-            { id: "f_8", name: "Mahek Provision Store", url: "https://maps.app.goo.gl/4ntAVnQPqWf5MhoCA?g_st=ac", gpsSaved: true },
-            { id: "f_9", name: "Jay Ambe Super Store", url: "https://maps.app.goo.gl/i459yd2CnZGUPwQo7", gpsSaved: true },
-            { id: "f_10", name: "Jay Durga Provision Store" }, { id: "f_11", name: "Ambica Provision Store & Icecream" },
-            { id: "f_12", name: "Narayan Provision Store" }, { id: "f_13", name: "Shriram Super Store" },
-            { id: "f_14", name: "Shri Mahavir Super Store" }, { id: "f_15", name: "Kanha's Scoops & More" },
-            { id: "f_16", name: "Bharat Provision Store" }, { id: "f_17", name: "Shri Ram Provision Store" },
-            { id: "f_18", name: "Sidhnath Pro & Farsan Store" }, { id: "f_19", name: "Bansidal Dairy" },
-            { id: "f_20", name: "Jay Shree Bhagwati Provision Store" }, { id: "f_21", name: "Shri Ram Dairy Shop" },
-            { id: "f_22", name: "Jay Ambe Provision Store" }, { id: "f_23", name: "Shri Ganesh Provision Store" },
-            { id: "f_24", name: "Radhe Pan Corner" }, { id: "f_25", name: "Shri Keyladevi Provision Store" },
-            { id: "f_26", name: "Shree Jai Jalaram Store" }
-        ],
-        
-        "Saturday - Kalali": [
-            "Shreeji Pan", "Baroda Dairy Parlar", "Prasann Soda Shop", "Jay Shree Bhairuji Kirana Store", "Mahiya Mart", 
-            "Bindu Provision Store", "Shakti Kirana Store", "Krishna Super Store", "Sukun Provision Store", "Khushi Pro Store", 
-            "Mahadev Mini Mart", "Balaji Super Market", "Chanakya Provision Store", "Devnarayan Provision Store", 
-            "Saibaba Provision Store", "Jay Mataji Pan & Colddrink", "Ma Bhavani Super Market", "Harsiddhi Provision Store", 
-            "Apna Adda Provision Store", "Bajrang Pan", "Parinda Enterprise", "Balaji Super Store -2", "Ms Super Store", 
-            "Ganesh Provision Store", "Al Makkah Pan", "Pick & Eat"
-        ].map((n, i) => ({ id: `s_${i+1}`, name: n }))
-    };
-
-    let shopsDB = JSON.parse(localStorage.getItem('shopsDB'));
-    
-    if (shopsDB && shopsDB["Wednesday"]) {
-        shopsDB["Wednesday - Nawayard"] = shopsDB["Wednesday"];
-        delete shopsDB["Wednesday"];
-        localStorage.setItem('shopsDB', JSON.stringify(shopsDB));
-    }
-    
-    if (!shopsDB) { shopsDB = defaultShops; }
-    const productsDB = [
-        { id: 1, name: "Hakka Noodles Masala", mrp: 10, rate: 8, bandha: 20 },
-        { id: 2, name: "Paneer Chili Masala", mrp: 10, rate: 8, bandha: 20 },
-        { id: 3, name: "Veg Manchurian Masala", mrp: 10, rate: 8, bandha: 20 },
-        { id: 4, name: "Schezwan Fried Rice Masala", mrp: 10, rate: 8, bandha: 20 },
-        { id: 5, name: "Schezwan Plain Fried Rice Masala", mrp: 10, rate: 8, bandha: 20 },
-        { id: 6, name: "Smith & Jones Peri Peri Masala", mrp: 5, rate: 4, scheme: "Min 48 pcs" },
-        { id: 7, name: "Smith & Jones Pasta Masala", mrp: 5, rate: 4.10, slabs: [{ min: 48, rate: 4.00 }], scheme: "Min 24 pcs" },
-        { id: 8, name: "Ching's Schezwan Fried Rice Masala (5 Pouch)", mrp: 50, rate: 42 },
-        { id: 9, name: "Schezwan Chutney Pouch", mrp: 10, rate: 8, scheme: "Min 30 pcs" },
-        { id: 10, name: "Schezwan Chutney Pouch", mrp: 45, rate: 33 },
-        { id: 11, name: "Schezwan Chutney Glass", mrp: 84, rate: 72 },
-        { id: 12, name: "Red Chilli Sauce Pouch", mrp: 25, rate: 21 },
-        { id: 13, name: "Green Chilli Sauce Pouch", mrp: 25, rate: 21 },
-        { id: 14, name: "Dark Soy Sauce Pouch", mrp: 25, rate: 21 },
-        { id: 15, name: "Red Chilli Sauce Glass", mrp: 56, rate: 45 },
-        { id: 16, name: "Green Chilli Sauce Glass", mrp: 56, rate: 45 },
-        { id: 17, name: "Dark Soy Sauce Glass", mrp: 56, rate: 45 },
-        { id: 18, name: "Chilli Vinegar Glass", mrp: 56, rate: 45 },
-        { id: 19, name: "Red Chilli Sauce Plastic", mrp: 84, rate: 45 },
-        { id: 20, name: "Green Chilli Sauce Plastic", mrp: 84, rate: 45 },
-        { id: 21, name: "Dark Soy Sauce Plastic", mrp: 84, rate: 45 },
-        { id: 22, name: "Smith & Jones Tomato Ketchup 90g", mrp: 15, rate: 12 },
-        { id: 23, name: "Ginger Garlic Paste (Small)", mrp: 5, rate: 3.50, scheme: "Min 48 pcs" },
-        { id: 24, name: "Ginger Garlic Paste (Big)", mrp: 47, rate: 33, slabs: [{ min: 24, rate: 23.50 }] },
-        { id: 25, name: "Hakka Noodles (Without Masala)", mrp: 30, rate: 24 },
-        { id: 26, name: "Hakka Noodles (With Masala Inside)", mrp: 35, rate: 28 },
-        { id: 27, name: "Ching's Chowmein 140g", mrp: 30, rate: 24 },
-        { id: 28, name: "Ching's Hot Garlic Noodles 64g", mrp: 20, rate: 14 },
-        { id: 29, name: "Ching's Manchurian Noodles 64g", mrp: 20, rate: 14 },
-        { id: 30, name: "Ching's Schezwan Noodles 64g", mrp: 20, rate: 14 },
-        { id: 31, name: "Ching's Singapore Curry Noodles 64g", mrp: 20, rate: 14 },
-        { id: 32, name: "Instant Soup - Mix Veg", mrp: 10, rate: 8, bandha: 20 },
-        { id: 33, name: "Instant Soup - Sweet Corn Veg", mrp: 10, rate: 8, bandha: 20 },
-        { id: 34, name: "Instant Soup - Hot & Sour", mrp: 10, rate: 8, bandha: 20 },
-        { id: 35, name: "Instant Soup - Manchow", mrp: 10, rate: 8, bandha: 20 },
-        { id: 36, name: "Instant Soup - Tomato", mrp: 10, rate: 8, bandha: 20 },
-        { id: 37, name: "Instant Soup - Asian Hot", mrp: 10, rate: 8, bandha: 20 },
-        { id: 38, name: "Instant Soup - Lemon Coriander", mrp: 10, rate: 8, bandha: 20 },
-        { id: 39, name: "Tata Sampann Fine Besan 500g", mrp: 75, rate: 40 },
-        { id: 40, name: "Tata Sampann Poha 500g", mrp: 57, rate: 33 },
-        { id: 41, name: "Tata Soulfull No Maida Rusk Toast", mrp: 40, rate: 30 },
-        { id: 42, name: "Tata Sampann Chilli Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
-        { id: 43, name: "Tata Sampann Turmeric Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
-        { id: 44, name: "Sweet Chilli Cashew", mrp: 59, rate: 41 },
-        { id: 45, name: "Pudina Cashew", mrp: 59, rate: 41 },
-        { id: 46, name: "Salted Roasted Almond", mrp: 59, rate: 41 },
-        { id: 47, name: "Salted Roasted Cashew", mrp: 59, rate: 41 },
-        { id: 48, name: "Cheese Burst Makhana", mrp: 155, rate: 108.5 },
-        { id: 49, name: "Himalayan Salt & Pepper Makhana", mrp: 155, rate: 108.5 },
-        { id: 50, name: "Fiery Peri Peri Makhana", mrp: 155, rate: 108.5 },
-        { id: 51, name: "Punchy Pudina Makhana", mrp: 155, rate: 108.5 },
-        { id: 52, name: "Chyawanprash (500g)", mrp: 495, rate: 495 },
-        { id: 53, name: "Apple Cider Vinegar (500ml)", mrp: 495, rate: 495 },
-        { id: 54, name: "Quinoa (500g)", mrp: 295, rate: 295 },
-        { id: 55, name: "Cow Ghee (500ml)", mrp: 625, rate: 625 },
-        { id: 56, name: "Bilona Ghee (500ml)", mrp: 995, rate: 995 },
-        { id: 57, name: "Virgin Coconut Oil (500ml)", mrp: 495, rate: 495 },
-        { id: 58, name: "Sunflower Oil (1L)", mrp: 295, rate: 295 },
-        { id: 59, name: "Groundnut Oil (1L)", mrp: 395, rate: 395 },
-        { id: 60, name: "Mustard Oil (1L)", mrp: 295, rate: 295 },
-        { id: 61, name: "Cinnamon Capsule", mrp: 250, rate: 250 },
-        { id: 62, name: "Moringa Capsule", mrp: 250, rate: 250 },
-        { id: 63, name: "Arjuna Capsule", mrp: 225, rate: 225 },
-        { id: 64, name: "Garcinia Cambogia Capsule", mrp: 295, rate: 295 },
-        { id: 65, name: "Spirulina Capsule", mrp: 295, rate: 295 },
-        { id: 66, name: "Flaxseed Oil Capsule", mrp: 395, rate: 395 },
-        { id: 67, name: "Beautiful Skin Capsule", mrp: 295, rate: 295 },
-        { id: 68, name: "Liver Kidney Care Capsule", mrp: 250, rate: 250 },
-        { id: 69, name: "Kalmegh Capsule", mrp: 225, rate: 225 },
-        { id: 70, name: "Oh-Boy! Capsule", mrp: 495, rate: 495 },
-        { id: 71, name: "Triphala Capsule", mrp: 225, rate: 225 },
-        { id: 72, name: "Turmeric Formula Capsule", mrp: 295, rate: 295 },
-        { id: 73, name: "Neem Capsule", mrp: 225, rate: 225 },
-        { id: 74, name: "Brahmi Capsule", mrp: 250, rate: 250 },
-        { id: 75, name: "Ashwagandha Capsule", mrp: 250, rate: 250 },
-        { id: 76, name: "Amalaki Capsule", mrp: 225, rate: 225 },
-        { id: 77, name: "Shatavari Capsule", mrp: 225, rate: 225 },
-        { id: 78, name: "Gokshura Capsule", mrp: 250, rate: 250 },
-        { id: 79, name: "Bowelcare Capsule", mrp: 225, rate: 225 },
-        { id: 80, name: "Immunity Capsule", mrp: 250, rate: 250 },
-        { id: 81, name: "Prostate Care Capsule", mrp: 295, rate: 295 },
-        { id: 82, name: "Women's Well-being Capsule", mrp: 250, rate: 250 },
-        { id: 83, name: "Breathe Free Capsule", mrp: 250, rate: 250 },
-        { id: 84, name: "Lipid Care Capsule", mrp: 250, rate: 250 },
-        { id: 85, name: "Sugar Balance Capsule", mrp: 295, rate: 295 },
-        { id: 86, name: "Flexibility Capsule", mrp: 250, rate: 250 },
-        { id: 87, name: "Osteoseal Capsule", mrp: 250, rate: 250 },
-        { id: 88, name: "Weight Balance Capsule", mrp: 295, rate: 295 },
-        { id: 89, name: "Wheat Grass Powder", mrp: 350, rate: 350 },
-        { id: 90, name: "Moringa Powder", mrp: 250, rate: 250 },
-        { id: 91, name: "Sat Isabgol Whole Husk", mrp: 225, rate: 225 },
-        { id: 92, name: "Triphala Powder", mrp: 150, rate: 150 },
-        { id: 93, name: "Jaggery Powder", mrp: 120, rate: 120 },
-        { id: 94, name: "Multifloral Honey", mrp: 250, rate: 250 },
-        { id: 95, name: "Desi Khandsari Sugar", mrp: 130, rate: 130 },
-        { id: 96, name: "Stevia", mrp: 295, rate: 295 },
-        { id: 97, name: "Tulsi Masala Chai", mrp: 180, rate: 180 },
-        { id: 98, name: "Tulsi Original", mrp: 174, rate: 174 },
-        { id: 99, name: "Tulsi Ginger", mrp: 174, rate: 174 },
-        { id: 100, name: "Tulsi Ginger Turmeric", mrp: 190, rate: 190 },
-        { id: 101, name: "Tulsi Peppermint Refresh", mrp: 190, rate: 190 },
-        { id: 102, name: "Simply Chamomile", mrp: 199, rate: 199 },
-        { id: 103, name: "Tulsi Honey Chamomile", mrp: 199, rate: 199 },
-        { id: 104, name: "Moringa Hibiscus", mrp: 190, rate: 190 },
-        { id: 105, name: "Tulsi Mulethi", mrp: 180, rate: 180 },
-        { id: 106, name: "Tulsi Sweet Rose", mrp: 199, rate: 199 },
-        { id: 107, name: "Tulsi Green Tea Classic", mrp: 174, rate: 174 },
-        { id: 108, name: "Tulsi Green Tea Lemon Ginger", mrp: 180, rate: 180 },
-        { id: 109, name: "Tulsi Green Tea Jasmine", mrp: 190, rate: 190 },
-        { id: 110, name: "Tulsi Detox Kahwa", mrp: 199, rate: 199 },
-        { id: 111, name: "Tulsi Green Tea Honey Lemon", mrp: 190, rate: 190 },
-        { id: 112, name: "Tulsi Green Tea Pomegranate", mrp: 190, rate: 190 },
-        { id: 113, name: "Tulsi Green Tea Ashwagandha", mrp: 190, rate: 190 },
-        { id: 114, name: "Tulsi Green Tea Sweet Lemon", mrp: 190, rate: 190 }
-    ];
     const views = ['routesView', 'shopsView', 'productsView'];
     let history = ['routesView'];
 
@@ -550,6 +354,9 @@
             let qty = cart[p.id]?.qty || 0;
             let currentRateText = calculateApplicableRate(p, qty);
             
+            // UI me agar Rate aur MRP same hain, toh "Regular rate" dikhega
+            let displayRateUI = (currentRateText == p.mrp) ? "Regular rate" : "₹" + currentRateText;
+            
             html += `
                 <div class="product-card product-item">
                     <div class="product-header">
@@ -558,7 +365,7 @@
                             ${schemeText ? `<div class="product-scheme">${schemeText}</div>` : ''}
                             <div class="list-item-sub" style="margin-top: 4px;">MRP: ₹${p.mrp}</div>
                         </div>
-                        <div class="product-price">Rate: ₹<span id="rate_${p.id}">${currentRateText}</span></div>
+                        <div class="product-price">Rate: <span id="rate_${p.id}">${displayRateUI}</span></div>
                     </div>
                     <div class="qty-wrapper">
                         <div class="qty-controls">
@@ -608,7 +415,9 @@
 
     function processCart(product, qty) {
         let actualRate = calculateApplicableRate(product, qty);
-        document.getElementById(`rate_${product.id}`).innerText = actualRate;
+        
+        let displayRateUI = (actualRate == product.mrp) ? "Regular rate" : "₹" + actualRate;
+        document.getElementById(`rate_${product.id}`).innerText = displayRateUI;
 
         if (qty > 0) {
             cart[product.id] = { p: product, qty: qty, actualRate: actualRate };
@@ -656,7 +465,10 @@
                 }
             }
 
-            msg += `Item: ${p.name}\nMrp: ${p.mrp}\nRate: ${item.actualRate}\nQuantity: ${qtyText}\n\n`;
+            let displayRate = (item.actualRate == p.mrp) ? "Regular rate" : item.actualRate;
+
+            // 'Item:' prefix hata diya gaya hai
+            msg += `${p.name}\nMrp: ${p.mrp}\nRate: ${displayRate}\nQuantity: ${qtyText}\n\n`;
         }
         
         let encodedMsg = encodeURIComponent(msg);
