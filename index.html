@@ -121,9 +121,10 @@
         <div id="shopHeaderContainer"></div>
         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
             <input type="text" class="search-box" id="productSearch" placeholder="Search Products..." onkeyup="filterProducts()" style="margin-bottom: 0;">
-            <button id="micBtn" onclick="startVoiceRecognition()" style="background: var(--wa-dark); color: white; border: none; border-radius: 12px; padding: 0 20px; font-size: 18px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-                <i class="fas fa-microphone"></i>
-            </button>
+            <button id="micBtn" onclick="startVoiceRecognition()" style="background: #075E54; color: #ffffff; border: none; border-radius: 12px; padding: 0 22px; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(7, 94, 84, 0.3); min-width: 60px;">
+    <i class="fas fa-microphone"></i>
+</button>
+
         </div>
         <div id="productsList"></div>
     </div>
@@ -646,10 +647,11 @@
             resetMicBtn();
         };
 
-        function resetMicBtn() {
-            micBtn.style.background = 'var(--wa-dark)';
+                function resetMicBtn() {
+            micBtn.style.background = '#075E54';
             micBtn.innerHTML = '<i class="fas fa-microphone"></i>';
         }
+
 
         recognition.start();
     }
