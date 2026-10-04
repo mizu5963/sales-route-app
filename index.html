@@ -232,8 +232,8 @@
         { id: 39, name: "Tata Sampann Fine Besan 500g", mrp: 75, rate: 40 },
         { id: 40, name: "Tata Sampann Poha 500g", mrp: 57, rate: 33 },
         { id: 41, name: "Tata Soulfull No Maida Rusk Toast", mrp: 40, rate: 30 },
-        { id: 42, name: "Tata Sampann Chilli Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 4 }], scheme: "12+ qty pe 4rs/pc" },
-        { id: 43, name: "Tata Sampann Turmeric Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 4 }], scheme: "12+ qty pe 4rs/pc" },
+                { id: 42, name: "Tata Sampann Chilli Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
+        { id: 43, name: "Tata Sampann Turmeric Powder (B1G1)", mrp: 10, rate: 8, slabs: [{ min: 12, rate: 5 }], scheme: "12+ qty pe 5rs/pc (Half of MRP)" },
         { id: 44, name: "Sweet Chilli Cashew", mrp: 59, rate: 41 },
         { id: 45, name: "Pudina Cashew", mrp: 59, rate: 41 },
         { id: 46, name: "Salted Roasted Almond", mrp: 59, rate: 41 },
@@ -308,6 +308,9 @@
     ];
 
     const views = ['routesView', 'shopsView', 'productsView'];
+    let history = ['routesView'];
+
+        const views = ['routesView', 'shopsView', 'productsView'];
     let history = ['routesView'];
 
     function showView(viewId, title, showBack) {
@@ -460,6 +463,7 @@
             let qty = cart[p.id]?.qty || 0;
             let currentRateText = calculateApplicableRate(p, qty);
             
+            // Yahan oninput lagaya gaya hai taaki manual typing turant update ho
             html += `
                 <div class="product-card product-item">
                     <div class="product-header">
@@ -473,7 +477,7 @@
                     <div style="display:flex; justify-content: flex-end;">
                         <div class="qty-controls">
                             <button class="qty-btn" onclick="updateQty(${p.id}, -1)">-</button>
-                            <input type="number" class="qty-input" id="qty_${p.id}" value="${qty}" onchange="manualQty(${p.id})">
+                            <input type="number" class="qty-input" id="qty_${p.id}" value="${qty}" oninput="manualQty(${p.id})">
                             <button class="qty-btn" onclick="updateQty(${p.id}, 1)">+</button>
                         </div>
                     </div>
@@ -510,10 +514,12 @@
         processCart(p, newQty);
     }
 
+    // Manual typing properly parse karne ke liye fix kiya gaya
     function manualQty(pId) {
         let p = productsDB.find(x => x.id === pId);
         let input = document.getElementById(`qty_${pId}`);
         let newQty = parseInt(input.value) || 0;
+        if(newQty < 0) newQty = 0;
         processCart(p, newQty);
     }
 
@@ -547,14 +553,29 @@
         }
     }
 
+    // Naya WhatsApp Format aur Bandha Calculation
     function generateWhatsApp() {
         if(Object.keys(cart).length === 0) return;
         
-        let msg = `${currentShop}\n${currentRoute}\n\n`;
+        let msg = `*${currentShop}*\n*${currentRoute}*\n\n`;
         
         for (let key in cart) {
             let item = cart[key];
-            msg += `${item.p.name} -${item.p.mrp}-${item.actualRate} - ${item.qty}\n`;
+            let p = item.p;
+            
+            // Bandha Logic
+            let qtyText = `${item.qty} pcs`;
+            if (p.bandha && item.qty >= p.bandha) {
+                let bandhaCount = Math.floor(item.qty / p.bandha);
+                let loosePcs = item.qty % p.bandha;
+                if (loosePcs === 0) {
+                    qtyText = `${bandhaCount} Bandha (${item.qty} pcs)`;
+                } else {
+                    qtyText = `${bandhaCount} Bandha & ${loosePcs} pcs (${item.qty} pcs)`;
+                }
+            }
+
+            msg += `${p.name}\nMRP: ${p.mrp}\nRate: ${item.actualRate}\nQuantity: ${qtyText}\n\n`;
         }
         
         let encodedMsg = encodeURIComponent(msg);
@@ -579,5 +600,8 @@
         }
     }
 </script>
+</body>
+</html>
+
 </body>
 </html>
